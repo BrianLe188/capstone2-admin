@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { logoDTU } from "@/assets";
 
 const View = ({
   data,
@@ -18,10 +17,7 @@ const View = ({
 }) => {
   return (
     <div className="h-screen w-64">
-      <div className="">
-        <img src={logoDTU} className="cursor-pointer" />
-      </div>
-      <div className="h-4/6 w-64 rounded-xl bg-slate-200 mt-2 mb-2 overflow-y-scroll">        
+      <div className="h-4/5 w-64 rounded-xl bg-stone-50 mt-3 mb-2 overflow-y-scroll ml-5 scrollbar-thin scrollbar-thumb-gray-500">     
         {data &&
           data.values.map((item) => (                       
             <div key={item.id}>            
@@ -40,7 +36,7 @@ const View = ({
                 </div> 
                 <div>
                   {item.children && item.children.map((item1) => (
-                    <div key={item1.id} className="desplegable pl-6 hover:bg-gray-600 hover:rounded-xl">
+                    <div key={item1.id} className="desplegable pl-6 hover:bg-zinc-100 hover:rounded-xl">
                       <Link to={item1.path} className="block p-2 flex items-center">
                         <div className="flex items-center cursor-pointer">
                           <div className="">
