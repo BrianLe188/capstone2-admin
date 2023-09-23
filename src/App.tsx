@@ -11,6 +11,10 @@ function App() {
       element: <AppLayout />,
       children: [
         {
+          path: "/",
+          element: <>Dashboard</>,
+        },
+        {
           path: "modules",
           element: <Modules />,
         },
