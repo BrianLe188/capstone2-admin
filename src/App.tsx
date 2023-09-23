@@ -3,7 +3,7 @@ import "./App.css";
 import Login from "./pages/login";
 import AuthLayout from "./layouts/auth";
 import AppLayout from "./layouts/app";
-import Menus from "./pages/menus";
+import Modules from "./pages/modules";
 
 function App() {
   const router = createBrowserRouter([
@@ -11,8 +11,8 @@ function App() {
       element: <AppLayout />,
       children: [
         {
-          path: "menus",
-          element: <Menus />,
+          path: "modules",
+          element: <Modules />,
         },
       ],
     },

@@ -4,7 +4,7 @@ import { GlobalContext } from "@/contexts/globalContext";
 import { useContext } from "react";
 import { Outlet } from "react-router-dom";
 import { type Menu } from "@/utils/responseTypes";
-import { user, menu, angleDown } from "../../assets/index";
+import { menu, angleDown } from "../../assets/index";
 
 const defaultMenu: Menu = {
   _id: "1",
@@ -14,123 +14,11 @@ const defaultMenu: Menu = {
   values: [
     {
       id: "1",
-      name: "Menus",
-      path: "/menus",
+      name: "Modules",
+      path: "/modules",
       icon: menu,
       angle_down: angleDown,
-      children:[
-        {
-          id: "1",
-          name: "Users",
-          path: "/menus",
-          iconChildren: user,
-          angle_down_Children: angleDown,
-        },
-        {
-          id: "2",
-          name: "Users",
-          path: "/menus",
-          iconChildren: user,
-          angle_down_Children: angleDown,
-        },
-        {
-          id: "3",
-          name: "Users",
-          path: "/menus",
-          iconChildren: user,
-          angle_down_Children: angleDown,
-        },
-      ]
-    },
-    {
-      id: "2",
-      name: "Users",
-      path: "/menus",
-      icon: user,
-      angle_down: angleDown,
-      children:[
-        {
-          id: "1",
-          name: "Users",
-          path: "/menus",
-          iconChildren: user,
-          angle_down_Children: angleDown,
-        },
-        {
-          id: "2",
-          name: "Users",
-          path: "/menus",
-          iconChildren: user,
-          angle_down_Children: angleDown,
-        },
-        {
-          id: "3",
-          name: "Users",
-          path: "/menus",
-          iconChildren: user,
-          angle_down_Children: angleDown,
-        },
-      ]
-    },
-    {
-      id: "3",
-      name: "Users",
-      path: "/menus",
-      icon: user,
-      angle_down: angleDown,
-      children:[
-        {
-          id: "1",
-          name: "Users",
-          path: "/menus",
-          iconChildren: user,
-          angle_down_Children: angleDown,
-        },
-        {
-          id: "2",
-          name: "Users",
-          path: "/menus",
-          iconChildren: user,
-          angle_down_Children: angleDown,
-        },
-        {
-          id: "3",
-          name: "Users",
-          path: "/menus",
-          iconChildren: user,
-          angle_down_Children: angleDown,
-        },
-      ]
-    },
-    {
-      id: "4",
-      name: "Users",
-      path: "/menus",
-      icon: user,
-      angle_down: angleDown,
-      children:[
-        {
-          id: "1",
-          name: "Users",
-          path: "/menus",
-          iconChildren: user,
-          angle_down_Children: angleDown,
-        },
-        {
-          id: "2",
-          name: "Users",
-          path: "/menus",
-          iconChildren: user,
-          angle_down_Children: angleDown,
-        },
-        {
-          id: "3",
-          name: "Users",
-          path: "/menus",
-          iconChildren: user,
-          angle_down_Children: angleDown,
-        },
-      ]
+      children: [],
     },
   ],
 };
@@ -142,9 +30,13 @@ const View = () => {
   return (
     <div className="w-full bg-gray-300">
       <Navbar />
-      <Sidebar className="w-20rem" data={menus || defaultMenu} />
-      <div className="">
-        <Outlet />
+      <div className="grid grid-cols-12 h-[calc(100vh-85px)] mt-3 mx-3 pb-3 gap-3">
+        <div className="col-span-3">
+          <Sidebar data={menus || defaultMenu} />
+        </div>
+        <div className="col-span-9 bg-white rounded-xl">
+          <Outlet />
+        </div>
       </div>
     </div>
   );
