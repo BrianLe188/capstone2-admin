@@ -29,3 +29,11 @@ export type Module = {
   path: string;
   icon: string;
 };
+
+export type MemberSchool = {
+  id: string;
+  name: string;
+  link: string;
+  university: boolean;
+  afterUniversity: boolean;
+};
