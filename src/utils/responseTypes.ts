@@ -33,7 +33,7 @@ export type Module = {
 export type SubjectBlock = {
   id: string;
   name: string;
-}
+};
 
 export type MemberSchool = {
   id: string;
@@ -41,4 +41,9 @@ export type MemberSchool = {
   link: string;
   university: boolean;
   afterUniversity: boolean;
+};
+
+export type Subject = {
+  id: string;
+  name: string;
 };

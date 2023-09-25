@@ -6,6 +6,7 @@ import AppLayout from "./layouts/app";
 import Modules from "./pages/modules";
 import SubjectBlock from "./pages/subjectBlock";
 import MemberSchool from "@/pages/memberSchool";
+import Subject from "./pages/subject";
 
 function App() {
   const router = createBrowserRouter([
@@ -22,11 +23,15 @@ function App() {
         },
         {
           path: "subject-block",
-          element: <SubjectBlock />
+          element: <SubjectBlock />,
         },
         {
           path: "member-school",
           element: <MemberSchool />,
+        },
+        {
+          path: "subject",
+          element: <Subject />,
         },
       ],
     },

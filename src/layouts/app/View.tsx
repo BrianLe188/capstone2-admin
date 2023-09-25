@@ -26,16 +26,24 @@ const defaultMenu: Menu = {
       path: "/subject-block",
       icon: menu,
       angle_down: angleDown,
-      children: []
-     },
-     {
+      children: [],
+    },
+    {
       id: "3",
       name: "Member School",
       path: "/member-school",
       icon: menu,
       angle_down: angleDown,
-      children: []
-     },
+      children: [],
+    },
+    {
+      id: "3",
+      name: "Subject",
+      path: "/subject",
+      icon: menu,
+      angle_down: angleDown,
+      children: [],
+    },
   ],
 };
 
