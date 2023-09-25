@@ -22,12 +22,20 @@ const defaultMenu: Menu = {
     },
     {
       id: "2",
+      name: "SubjectBlock",
+      path: "/subject-block",
+      icon: menu,
+      angle_down: angleDown,
+      children: []
+     },
+     {
+      id: "3",
       name: "Member School",
       path: "/member-school",
       icon: menu,
       angle_down: angleDown,
-      children: [],
-    },
+      children: []
+     },
   ],
 };
 

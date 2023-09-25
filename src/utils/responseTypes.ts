@@ -30,6 +30,11 @@ export type Module = {
   icon: string;
 };
 
+export type SubjectBlock = {
+  id: string;
+  name: string;
+}
+
 export type MemberSchool = {
   id: string;
   name: string;
