@@ -21,13 +21,21 @@ const defaultMenu: Menu = {
       children: [],
     },
     {
-      id: "4",
+      id: "2",
       name: "SubjectBlock",
       path: "/subject-block",
       icon: menu,
       angle_down: angleDown,
-      children: [],
-    },
+      children: []
+     },
+     {
+      id: "3",
+      name: "Member School",
+      path: "/member-school",
+      icon: menu,
+      angle_down: angleDown,
+      children: []
+     },
   ],
 };
 

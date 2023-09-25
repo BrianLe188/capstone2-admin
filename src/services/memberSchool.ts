@@ -1,11 +1,11 @@
-import { Module } from "@/utils/responseTypes";
+import { MemberSchool } from "@/utils/responseTypes";
 import { request } from "./request";
 
-const getAll = (): Promise<Array<Module>> =>
+const getAll = (): Promise<Array<MemberSchool>> =>
   new Promise((rs, rj) => {
     try {
       request()
-        .get("/admission/modules")
+        .get("/admission/member-schools")
         .then(({ data }) => {
           rs(data?.data);
         });
@@ -14,11 +14,11 @@ const getAll = (): Promise<Array<Module>> =>
     }
   });
 
-const create = (req: { body: Partial<Module> }) =>
+const create = (req: { body: Partial<MemberSchool> }) =>
   new Promise((rs, rj) => {
     try {
       request()
-        .post("/admission/modules", req.body)
+        .post("/admission/member-schools", req.body)
         .then(({ data }) => {
           rs(data);
         });
@@ -27,11 +27,11 @@ const create = (req: { body: Partial<Module> }) =>
     }
   });
 
-const update = (req: { params: { id: string }; body: Partial<Module> }) =>
+const update = (req: { params: { id: string }; body: Partial<MemberSchool> }) =>
   new Promise((rs, rj) => {
     try {
       request()
-        .put(`/admission/modules/${req.params.id}`, req.body)
+        .put(`/admission/member-schools/${req.params.id}`, req.body)
         .then(({ data }) => {
           rs(data);
         });
@@ -44,7 +44,7 @@ const deleted = (req: { params: { id: string } }) =>
   new Promise((rs, rj) => {
     try {
       request()
-        .delete(`/admission/modules/${req.params.id}`)
+        .delete(`/admission/member-schools/${req.params.id}`)
         .then(({ data }) => {
           rs(data);
         });
@@ -53,11 +53,11 @@ const deleted = (req: { params: { id: string } }) =>
     }
   });
 
-const ModuleService = {
+const MemberSchoolService = {
   getAll,
   create,
   update,
   deleted,
 };
 
-export default ModuleService;
+export default MemberSchoolService;
