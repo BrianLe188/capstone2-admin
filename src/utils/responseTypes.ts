@@ -29,3 +29,8 @@ export type Module = {
   path: string;
   icon: string;
 };
+
+export type Subject = {
+  id: string;
+  name: string;
+};

@@ -20,6 +20,14 @@ const defaultMenu: Menu = {
       angle_down: angleDown,
       children: [],
     },
+    {
+      id: "3",
+      name: "Subject",
+      path: "/subject",
+      icon: menu,
+      angle_down: angleDown,
+      children: [],
+    },
   ],
 };
 

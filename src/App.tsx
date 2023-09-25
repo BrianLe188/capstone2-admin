@@ -4,6 +4,7 @@ import Login from "./pages/login";
 import AuthLayout from "./layouts/auth";
 import AppLayout from "./layouts/app";
 import Modules from "./pages/modules";
+import Subject from "./pages/subject";
 
 function App() {
   const router = createBrowserRouter([
@@ -17,6 +18,10 @@ function App() {
         {
           path: "modules",
           element: <Modules />,
+        },
+        {
+          path: "subject",
+          element: <Subject />,
         },
       ],
     },
