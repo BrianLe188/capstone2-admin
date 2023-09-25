@@ -1,4 +1,4 @@
-import ModuleService from "@/services/modules";
+import MemberSchoolService from "@/services/memberSchool";
 import { MemberSchool } from "@/utils/responseTypes";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -20,7 +20,7 @@ const View = ({
     }
   }, [data]);
 
-  const changeHandler = (name: string, value: number | string) => {
+  const changeHandler = (name: string, value: number | string | boolean) => {
     setDetails((state) => ({
       ...state,
       [name]: value,
@@ -33,14 +33,14 @@ const View = ({
       if (data?.id) {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { id, ...rest } = details;
-        res = await ModuleService.update({
+        res = await MemberSchoolService.update({
           params: {
             id: data.id,
           },
           body: rest,
         });
       } else {
-        res = await ModuleService.create({
+        res = await MemberSchoolService.create({
           body: {
             ...details,
           },
@@ -62,43 +62,46 @@ const View = ({
         Member School
       </p>
       <div>
-        <label htmlFor="key" className="flex items-center gap-3 mb-2">
-          Name
-          <input
-            id="key"
-            type="text"
-            value={details?.name}
-            onChange={(e) => changeHandler("key", e.target.value)}
-            className="border p-2 rounded-lg w-full"
-          />
-        </label>
         <label htmlFor="name" className="flex items-center gap-3 mb-2">
-          Link
+          Name
           <input
             id="name"
             type="text"
-            value={details?.link}
+            value={details?.name}
             onChange={(e) => changeHandler("name", e.target.value)}
             className="border p-2 rounded-lg w-full"
           />
         </label>
-        <label htmlFor="path" className="flex items-center gap-3 mb-2">
-          University
+        <label htmlFor="link" className="flex items-center gap-3 mb-2">
+          Link
           <input
-            id="path"
-            type="checkbox"
-            checked={details?.university}
-            onChange={(e) => changeHandler("path", e.target.value)}
+            id="link"
+            type="text"
+            value={details?.link}
+            onChange={(e) => changeHandler("link", e.target.value)}
             className="border p-2 rounded-lg w-full"
           />
         </label>
-        <label htmlFor="path" className="flex items-center gap-3 mb-2">
+        <label htmlFor="university" className="flex items-center gap-3 mb-2">
+          University
+          <input
+            id="university"
+            type="checkbox"
+            checked={details?.university}
+            onChange={(e) => changeHandler("university", e.target.checked)}
+            className="border p-2 rounded-lg w-full"
+          />
+        </label>
+        <label
+          htmlFor="afterUniversity"
+          className="flex items-center gap-3 mb-2"
+        >
           After University
           <input
-            id="path"
+            id="afterUniversity"
             type="checkbox"
             checked={details?.afterUniversity}
-            onChange={(e) => changeHandler("path", e.target.value)}
+            onChange={(e) => changeHandler("afterUniversity", e.target.checked)}
             className="border p-2 rounded-lg w-full"
           />
         </label>
