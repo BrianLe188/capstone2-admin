@@ -1,11 +1,12 @@
 import { User } from "@/utils/responseTypes";
 import { request } from "./request";
+import { EROLE } from "@/utils/enums";
 
 const getAll = (): Promise<Array<User>> =>
   new Promise((rs, rj) => {
     try {
       request()
-        .get("/admission/user")
+        .get("/auth/users")
         .then(({ data }) => {
           rs(data?.data);
         });
@@ -14,11 +15,18 @@ const getAll = (): Promise<Array<User>> =>
     }
   });
 
-const create = (req: { body: Partial<User> }) =>
+const create = (req: {
+  body: {
+    user: Partial<User>;
+    role: {
+      name: EROLE;
+    };
+  };
+}) =>
   new Promise((rs, rj) => {
     try {
       request()
-        .post("/admission/user", req.body)
+        .post("/auth/register", req.body)
         .then(({ data }) => {
           rs(data);
         });
@@ -31,7 +39,7 @@ const update = (req: { params: { id: string }; body: Partial<User> }) =>
   new Promise((rs, rj) => {
     try {
       request()
-        .put(`/admission/user/${req.params.id}`, req.body)
+        .put(`/auth/users/${req.params.id}`, req.body)
         .then(({ data }) => {
           rs(data);
         });
@@ -44,7 +52,7 @@ const deleted = (req: { params: { id: string } }) =>
   new Promise((rs, rj) => {
     try {
       request()
-        .delete(`/admission/user/${req.params.id}`)
+        .delete(`/auth/users/${req.params.id}`)
         .then(({ data }) => {
           rs(data);
         });

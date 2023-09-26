@@ -32,13 +32,10 @@ const View = ({
   return (
     <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
       <th scope="row" className="px-6 py-4">
-        {data.username}
+        {data.email}
       </th>
-      <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-        {data.password}
-      </td>
       <td className="px-6 py-4">{data.fullName}</td>
-      <td className="px-6 py-4">{data.role}</td>
+      <td className="px-6 py-4">{data.role.name}</td>
       <td className="px-6 py-4">
         <button className="text-green-700 mr-2" onClick={onEdit}>
           Edit

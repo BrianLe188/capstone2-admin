@@ -45,10 +45,15 @@ export type MemberSchool = {
 
 export type User = {
   id: string;
-  username: string;
+  email: string;
   password: string;
   fullName: string;
-  role: "user" | "admin";
+  role: Partial<Role>;
+};
+
+export type Role = {
+  id: string;
+  name: string;
 };
 
 export type Subject = {

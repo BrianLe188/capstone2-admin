@@ -1,4 +1,5 @@
 import UserService from "@/services/user";
+import { EROLE } from "@/utils/enums";
 import { User } from "@/utils/responseTypes";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -12,7 +13,13 @@ const View = ({
   load: () => void;
   setTarget: Dispatch<SetStateAction<User | null>>;
 }) => {
-  const [details, setDetails] = useState<Partial<User>>({});
+  const [details, setDetails] = useState<Partial<User>>({
+    email: "",
+    fullName: "",
+    role: {
+      name: "",
+    },
+  });
 
   useEffect(() => {
     if (data) {
@@ -24,6 +31,15 @@ const View = ({
     setDetails((state) => ({
       ...state,
       [name]: value,
+    }));
+  };
+
+  const changeRole = (value: string) => {
+    setDetails((state) => ({
+      ...state,
+      role: {
+        name: value,
+      },
     }));
   };
 
@@ -42,7 +58,14 @@ const View = ({
       } else {
         res = await UserService.create({
           body: {
-            ...details,
+            user: {
+              email: details.email,
+              password: details.password,
+              fullName: details.fullName,
+            },
+            role: {
+              name: details.role?.name as EROLE,
+            },
           },
         });
       }
@@ -55,30 +78,19 @@ const View = ({
       toast.error("Error");
     }
   };
+  console.log(details);
 
   return (
     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white shadow-lg rounded-xl w-1/2 p-5">
-      <p className="text-center text-blue-500 font-semibold mb-5">
-        Member School
-      </p>
+      <p className="text-center text-blue-500 font-semibold mb-5">User</p>
       <div>
-        <label htmlFor="username" className="flex items-center gap-3 mb-2">
-          Username
+        <label htmlFor="email" className="flex items-center gap-3 mb-2">
+          Email
           <input
-            id="name"
-            type="text"
-            value={details?.username}
-            onChange={(e) => changeHandler("username", e.target.value)}
-            className="border p-2 rounded-lg w-full"
-          />
-        </label>
-        <label htmlFor="password" className="flex items-center gap-3 mb-2">
-          Password
-          <input
-            id="password"
-            type="text"
-            value={details?.password}
-            onChange={(e) => changeHandler("password", e.target.value)}
+            id="email"
+            type="email"
+            value={details?.email}
+            onChange={(e) => changeHandler("email", e.target.value)}
             className="border p-2 rounded-lg w-full"
           />
         </label>
@@ -96,13 +108,14 @@ const View = ({
           Role
           <select
             id="role"
-            value={details?.role}
-            onChange={(e) => changeHandler("role", e.target.value)}
+            value={details.role?.name}
+            onChange={(e) => changeRole(e.target.value)}
             className="border p-2 rounded-lg w-full"
           >
             <option>Select Role</option>
-            <option value="user">User</option>
-            <option value="admin">Admin</option>
+            {Object.keys(EROLE).map((role) => (
+              <option value={EROLE[role as keyof typeof EROLE]}>{role}</option>
+            ))}
           </select>
         </label>
       </div>
