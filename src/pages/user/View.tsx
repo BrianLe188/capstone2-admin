@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import Row from "./components/row";
 import { toast } from "react-toastify";
-import MemberSchoolService from "@/services/memberSchool";
-import { MemberSchool } from "@/utils/responseTypes";
+import { User } from "@/utils/responseTypes";
 import { createPortal } from "react-dom";
 import Details from "./components/details";
+import UserService from "@/services/user";
 
 const View = () => {
-  const [memberSchool, setMemberSchool] = useState<Array<MemberSchool>>([]);
-  const [target, setTarget] = useState<MemberSchool | null>(null);
+  const [user, setUser] = useState<Array<User>>([]);
+  const [target, setTarget] = useState<User | null>(null);
 
   useEffect(() => {
     loadData();
@@ -17,8 +17,8 @@ const View = () => {
   const loadData = async () => {
     try {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const res = await MemberSchoolService.getAll();
-      setMemberSchool(res || []);
+      const res = await UserService.getAll();
+      setUser(res || []);
     } catch (error) {
       toast.error("Something went wrong!");
     }
@@ -34,7 +34,7 @@ const View = () => {
       <div className="mt-3 mx-3">
         <button
           className="bg-green-200 w-20 py-2 rounded-md"
-          onClick={() => setTarget({} as MemberSchool)}
+          onClick={() => setTarget({} as User)}
         >
           New
         </button>
@@ -45,16 +45,16 @@ const View = () => {
             <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
               <tr>
                 <th scope="col" className="px-6 py-3">
-                  Name
+                  Username
                 </th>
                 <th scope="col" className="px-6 py-3">
-                  Link
+                  Password
                 </th>
                 <th scope="col" className="px-6 py-3">
-                  University
+                  Full Name
                 </th>
                 <th scope="col" className="px-6 py-3">
-                  After University
+                  Role
                 </th>
                 <th scope="col" className="px-6 py-3">
                   Action
@@ -62,7 +62,7 @@ const View = () => {
               </tr>
             </thead>
             <tbody>
-              {memberSchool.map((item) => (
+              {user.map((item) => (
                 <Row
                   data={item}
                   onEdit={() => setTarget(item)}

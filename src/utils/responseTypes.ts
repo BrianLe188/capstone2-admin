@@ -43,6 +43,14 @@ export type MemberSchool = {
   afterUniversity: boolean;
 };
 
+export type User = {
+  id: string;
+  username: string;
+  password: string;
+  fullName: string;
+  role: "user" | "admin";
+};
+
 export type Subject = {
   id: string;
   name: string;
