@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { type } from "os";
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export type Menu = {
   _id: string;
@@ -60,3 +63,16 @@ export type Subject = {
   id: string;
   name: string;
 };
+
+export type Majors = {
+  id: string;
+  name: string;
+  industryCode: string;
+  specializedCode: string;
+  educationLevel: Partial<Level>;
+};
+
+export type Level = {
+  id: string;
+  level: string;
+}

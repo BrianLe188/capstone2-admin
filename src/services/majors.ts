@@ -1,11 +1,12 @@
-import { Subject } from "@/utils/responseTypes";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { Majors } from "@/utils/responseTypes";
 import { request } from "./request";
 
-const getAll = (): Promise<Array<Subject>> =>
+const getAll = (): Promise<Array<Majors>> =>
   new Promise((rs, rj) => {
     try {
       request()
-        .get("/admission/subjects")
+        .get("/admission/majors")
         .then(({ data }) => {
           rs(data?.data);
         });
@@ -14,11 +15,11 @@ const getAll = (): Promise<Array<Subject>> =>
     }
   });
 
-const create = (req: { body: Partial<Subject> }) =>
+const create = (req: { body: any }) =>
   new Promise((rs, rj) => {
     try {
       request()
-        .post("/admission/subjects", req.body)
+        .post("/admission/majors", req.body)
         .then(({ data }) => {
           rs(data);
         });
@@ -27,11 +28,11 @@ const create = (req: { body: Partial<Subject> }) =>
     }
   });
 
-const update = (req: { params: { id: string }; body: Partial<Subject> }) =>
+const update = (req: { params: { id: string }; body: Partial<Majors> }) =>
   new Promise((rs, rj) => {
     try {
       request()
-        .put(`/admission/subjects/${req.params.id}`, req.body)
+        .put(`/admission/majors/${req.params.id}`, req.body)
         .then(({ data }) => {
           rs(data);
         });
@@ -44,7 +45,7 @@ const deleted = (req: { params: { id: string } }) =>
   new Promise((rs, rj) => {
     try {
       request()
-        .delete(`/admission/subjects/${req.params.id}`)
+        .delete(`/admission/majors/${req.params.id}`)
         .then(({ data }) => {
           rs(data);
         });
@@ -53,11 +54,11 @@ const deleted = (req: { params: { id: string } }) =>
     }
   });
 
-const SubjectService = {
+const MajorsService = {
   getAll,
   create,
   update,
   deleted,
 };
 
-export default SubjectService;
+export default MajorsService;

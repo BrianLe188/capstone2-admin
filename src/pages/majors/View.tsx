@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import Row from "./components/row";
 import { toast } from "react-toastify";
-import SubjectService from "@/services/subject";
-import { Subject } from "@/utils/responseTypes";
+import { Majors } from "@/utils/responseTypes";
 import { createPortal } from "react-dom";
 import Details from "./components/details";
+import MajorsService from "@/services/majors";
 
 const View = () => {
-  const [subject, setSubject] = useState<Array<Subject>>([]);
-  const [target, setTarget] = useState<Subject | null>(null);
+  const [majors, setMajors] = useState<Array<Majors>>([]);
+  const [target, setTarget] = useState<Majors | null>(null);
 
   useEffect(() => {
     loadData();
@@ -17,8 +17,8 @@ const View = () => {
   const loadData = async () => {
     try {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const res = await SubjectService.getAll();
-      setSubject(res || []);
+      const res = await MajorsService.getAll();
+      setMajors(res || []);
     } catch (error) {
       toast.error("Something went wrong!");
     }
@@ -34,7 +34,7 @@ const View = () => {
       <div className="mt-3 mx-3">
         <button
           className="bg-green-200 w-20 py-2 rounded-md"
-          onClick={() => setTarget({} as Subject)}
+          onClick={() => setTarget({} as Majors)}
         >
           New
         </button>
@@ -51,12 +51,21 @@ const View = () => {
                   Name
                 </th>
                 <th scope="col" className="px-6 py-3">
+                  Industry Code
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Specialized Code
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Education level
+                </th>
+                <th scope="col" className="px-6 py-3">
                   Action
                 </th>
               </tr>
             </thead>
             <tbody>
-              {subject.map((item) => (
+              {majors.map((item) => (
                 <Row
                   data={item}
                   onEdit={() => setTarget(item)}

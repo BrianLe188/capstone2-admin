@@ -52,6 +52,14 @@ const defaultMenu: Menu = {
       angle_down: angleDown,
       children: [],
     },
+    {
+      id: "5",
+      name: "Majors",
+      path: "/majors",
+      icon: menu,
+      angle_down: angleDown,
+      children: [],
+    }
   ],
 };
 
