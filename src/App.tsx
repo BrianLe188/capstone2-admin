@@ -4,7 +4,10 @@ import Login from "./pages/login";
 import AuthLayout from "./layouts/auth";
 import AppLayout from "./layouts/app";
 import Modules from "./pages/modules";
+import SubjectBlock from "./pages/subjectBlock";
+import MemberSchool from "@/pages/memberSchool";
 import Subject from "./pages/subject";
+import User from "@/pages/user";
 
 function App() {
   const router = createBrowserRouter([
@@ -20,8 +23,20 @@ function App() {
           element: <Modules />,
         },
         {
+          path: "subject-block",
+          element: <SubjectBlock />,
+        },
+        {
+          path: "member-school",
+          element: <MemberSchool />,
+        },
+        {
           path: "subject",
           element: <Subject />,
+        },
+        {
+          path: "user",
+          element: <User />,
         },
       ],
     },

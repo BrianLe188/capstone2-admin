@@ -1,11 +1,11 @@
-import { Subject } from "@/utils/responseTypes";
+import { SubjectBlock } from "@/utils/responseTypes";
 import { request } from "./request";
 
-const getAll = (): Promise<Array<Subject>> =>
+const getAll = (): Promise<Array<SubjectBlock>> =>
   new Promise((rs, rj) => {
     try {
       request()
-        .get("/admission/subjects")
+        .get("/admission/subject-blocks")
         .then(({ data }) => {
           rs(data);
         });
@@ -14,11 +14,11 @@ const getAll = (): Promise<Array<Subject>> =>
     }
   });
 
-const create = (req: { body: Partial<Subject> }) =>
+const create = (req: { body: Partial<SubjectBlock> }) =>
   new Promise((rs, rj) => {
     try {
       request()
-        .post("/admission/subjects", req.body)
+        .post("/admission/subject-blocks", req.body)
         .then(({ data }) => {
           rs(data);
         });
@@ -27,11 +27,11 @@ const create = (req: { body: Partial<Subject> }) =>
     }
   });
 
-const update = (req: { params: { id: string }; body: Partial<Subject> }) =>
+const update = (req: { params: { id: string }; body: Partial<SubjectBlock> }) =>
   new Promise((rs, rj) => {
     try {
       request()
-        .put(`/admission/subjects/${req.params.id}`, req.body)
+        .put(`/admission/subject-blocks/${req.params.id}`, req.body)
         .then(({ data }) => {
           rs(data);
         });
@@ -44,7 +44,7 @@ const deleted = (req: { params: { id: string } }) =>
   new Promise((rs, rj) => {
     try {
       request()
-        .delete(`/admission/subjects/${req.params.id}`)
+        .delete(`/admission/subject-blocks/${req.params.id}`)
         .then(({ data }) => {
           rs(data);
         });
@@ -53,11 +53,11 @@ const deleted = (req: { params: { id: string } }) =>
     }
   });
 
-const SubjectService = {
+const SubjectBlockService = {
   getAll,
   create,
   update,
   deleted,
 };
 
-export default SubjectService;
+export default SubjectBlockService;

@@ -30,6 +30,32 @@ export type Module = {
   icon: string;
 };
 
+export type SubjectBlock = {
+  id: string;
+  name: string;
+};
+
+export type MemberSchool = {
+  id: string;
+  name: string;
+  link: string;
+  university: boolean;
+  afterUniversity: boolean;
+};
+
+export type User = {
+  id: string;
+  email: string;
+  password: string;
+  fullName: string;
+  role: Partial<Role>;
+};
+
+export type Role = {
+  id: string;
+  name: string;
+};
+
 export type Subject = {
   id: string;
   name: string;
