@@ -15,13 +15,11 @@ const getAll = (): Promise<Array<Majors>> =>
     }
   });
 
-const create = (req: {
-  body: any
-}) =>
+const create = (req: { body: any }) =>
   new Promise((rs, rj) => {
     try {
       request()
-        .post("/admission/register", req.body)
+        .post("/admission/majors", req.body)
         .then(({ data }) => {
           rs(data);
         });

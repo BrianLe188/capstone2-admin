@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Row from "./components/row";
 import { toast } from "react-toastify";
-import SubjectService from "@/services/modules";
+import SubjectService from "@/services/subject";
 import { Subject } from "@/utils/responseTypes";
 import { createPortal } from "react-dom";
 import Details from "./components/details";

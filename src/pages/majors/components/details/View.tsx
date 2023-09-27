@@ -19,8 +19,8 @@ const View = ({
     industryCode: "",
     specializedCode: "",
     educationLevel: {
-      level: ""
-    }
+      level: "",
+    },
   });
 
   useEffect(() => {
@@ -61,7 +61,6 @@ const View = ({
         res = await MajorsService.create({
           body: {
             major: {
-              id: details.id,
               name: details.name,
               industryCode: details.industryCode,
               specializedCode: details.specializedCode,
@@ -79,22 +78,11 @@ const View = ({
       toast.error("Error");
     }
   };
-  console.log(details);
 
   return (
     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white shadow-lg rounded-xl w-1/2 p-5">
       <p className="text-center text-blue-500 font-semibold mb-5">Major</p>
       <div>
-        <label htmlFor="id" className="flex items-center gap-3 mb-2">
-          ID
-          <input
-            id="id"
-            type="text"
-            value={details?.id}
-            onChange={(e) => changeHandler("id", e.target.value)}
-            className="border p-2 rounded-lg w-full"
-          />
-        </label>
         <label htmlFor="name" className="flex items-center gap-3 mb-2">
           Name
           <input
@@ -115,7 +103,10 @@ const View = ({
             className="border p-2 rounded-lg w-full"
           />
         </label>
-        <label htmlFor="specializedCode" className="flex items-center gap-3 mb-2">
+        <label
+          htmlFor="specializedCode"
+          className="flex items-center gap-3 mb-2"
+        >
           Specialized Code
           <input
             id="specializedCode"
@@ -125,7 +116,10 @@ const View = ({
             className="border p-2 rounded-lg w-full"
           />
         </label>
-        <label htmlFor="educationLevel" className="flex items-center gap-3 mb-2">
+        <label
+          htmlFor="educationLevel"
+          className="flex items-center gap-3 mb-2"
+        >
           Education Level
           <select
             id="educationLevel"
@@ -135,7 +129,9 @@ const View = ({
           >
             <option>Select Education Level</option>
             {Object.keys(ELEVEL).map((level) => (
-              <option value={ELEVEL[level as keyof typeof ELEVEL]}>{level}</option>
+              <option value={ELEVEL[level as keyof typeof ELEVEL]}>
+                {level}
+              </option>
             ))}
           </select>
         </label>

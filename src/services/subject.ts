@@ -7,7 +7,7 @@ const getAll = (): Promise<Array<Subject>> =>
       request()
         .get("/admission/subjects")
         .then(({ data }) => {
-          rs(data);
+          rs(data?.data);
         });
     } catch (error) {
       rj(error);
