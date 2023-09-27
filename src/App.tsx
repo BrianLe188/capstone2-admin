@@ -8,6 +8,7 @@ import SubjectBlock from "./pages/subjectBlock";
 import MemberSchool from "@/pages/memberSchool";
 import Subject from "./pages/subject";
 import User from "@/pages/user";
+import Majors from "./pages/majors";
 
 function App() {
   const router = createBrowserRouter([
@@ -37,6 +38,10 @@ function App() {
         {
           path: "user",
           element: <User />,
+        },
+        {
+          path: "majors",
+          element: <Majors />,
         },
       ],
     },

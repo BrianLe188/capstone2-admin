@@ -58,7 +58,7 @@ const View = ({
 
   return (
     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white shadow-lg rounded-xl w-1/2 p-5">
-      <p className="text-center text-blue-500 font-semibold mb-5">Module</p>
+      <p className="text-center text-blue-500 font-semibold mb-5">Subject Block</p>
       <div>
         <label htmlFor="id" className="flex items-center gap-3 mb-2">
           Id
