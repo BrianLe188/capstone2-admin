@@ -1,6 +1,19 @@
 import { SubjectBlock } from "@/utils/responseTypes";
 import { request } from "./request";
 
+const importExcel = (req: { body: { data: string[] } }): Promise<string> =>
+  new Promise((rs, rj) => {
+    try {
+      request()
+        .post("/admission/subject-blocks/import", req.body)
+        .then(({ data }) => {
+          rs(data?.data);
+        });
+    } catch (error) {
+      rj(error);
+    }
+  });
+
 const getAll = (): Promise<Array<SubjectBlock>> =>
   new Promise((rs, rj) => {
     try {
@@ -58,6 +71,7 @@ const SubjectBlockService = {
   create,
   update,
   deleted,
+  importExcel,
 };
 
 export default SubjectBlockService;
