@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
 import Row from "./components/row";
 import { toast } from "react-toastify";
@@ -5,6 +6,7 @@ import SubjectService from "@/services/subject";
 import { Subject } from "@/utils/responseTypes";
 import { createPortal } from "react-dom";
 import Details from "./components/details";
+import * as XLSX from "xlsx";
 
 const View = () => {
   const [subject, setSubject] = useState<Array<Subject>>([]);
@@ -24,6 +26,38 @@ const View = () => {
     }
   };
 
+  const handleFileUpload = (event: any) => {
+    const file = event.target.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onload = async (e: any) => {
+        const data = e.target.result;
+        const workbook = XLSX.read(data, { type: "binary" });
+
+        const sheetName = workbook.SheetNames[0];
+        const sheet = workbook.Sheets[sheetName];
+
+        const columnData = XLSX.utils.sheet_to_json(sheet, {
+          header: ["name"],
+          range: 1,
+        });
+        if (!columnData) {
+          return toast.warn("Wrong format");
+        }
+
+        const [, ...rest] = columnData.map((row: any) => row.name);
+        const res: string = await SubjectService.importExcel({
+          body: { data: rest },
+        });
+        toast.success(res);
+      };
+
+      reader.readAsBinaryString(file);
+    }
+  };
+
   return (
     <div>
       {target &&
@@ -38,6 +72,18 @@ const View = () => {
         >
           New
         </button>
+        <input
+          hidden
+          id="nameImport"
+          type="file"
+          onChange={(e) => handleFileUpload(e)}
+        />
+        <label
+          htmlFor="nameImport"
+          className="cursor-pointer ml-6 p-3 bg-gray-200 rounded-md"
+        >
+          Import name
+        </label>
       </div>
       <div className="mt-5 h-96">
         <div className="relative overflow-x-auto">

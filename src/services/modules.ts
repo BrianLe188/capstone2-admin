@@ -5,7 +5,7 @@ const getAll = (): Promise<Array<Module>> =>
   new Promise((rs, rj) => {
     try {
       request()
-        .get("/admission/modules")
+        .get("/core/modules")
         .then(({ data }) => {
           rs(data?.data);
         });
@@ -18,7 +18,7 @@ const create = (req: { body: Partial<Module> }) =>
   new Promise((rs, rj) => {
     try {
       request()
-        .post("/admission/modules", req.body)
+        .post("/core/modules", req.body)
         .then(({ data }) => {
           rs(data);
         });
@@ -31,7 +31,7 @@ const update = (req: { params: { id: string }; body: Partial<Module> }) =>
   new Promise((rs, rj) => {
     try {
       request()
-        .put(`/admission/modules/${req.params.id}`, req.body)
+        .put(`/core/modules/${req.params.id}`, req.body)
         .then(({ data }) => {
           rs(data);
         });
@@ -44,7 +44,7 @@ const deleted = (req: { params: { id: string } }) =>
   new Promise((rs, rj) => {
     try {
       request()
-        .delete(`/admission/modules/${req.params.id}`)
+        .delete(`/core/modules/${req.params.id}`)
         .then(({ data }) => {
           rs(data);
         });

@@ -5,7 +5,7 @@ const getAll = (): Promise<Array<MemberSchool>> =>
   new Promise((rs, rj) => {
     try {
       request()
-        .get("/admission/member-schools")
+        .get("/core/member-schools")
         .then(({ data }) => {
           rs(data?.data);
         });
@@ -18,7 +18,7 @@ const create = (req: { body: Partial<MemberSchool> }) =>
   new Promise((rs, rj) => {
     try {
       request()
-        .post("/admission/member-schools", req.body)
+        .post("/core/member-schools", req.body)
         .then(({ data }) => {
           rs(data);
         });
@@ -31,7 +31,7 @@ const update = (req: { params: { id: string }; body: Partial<MemberSchool> }) =>
   new Promise((rs, rj) => {
     try {
       request()
-        .put(`/admission/member-schools/${req.params.id}`, req.body)
+        .put(`/core/member-schools/${req.params.id}`, req.body)
         .then(({ data }) => {
           rs(data);
         });
@@ -44,7 +44,7 @@ const deleted = (req: { params: { id: string } }) =>
   new Promise((rs, rj) => {
     try {
       request()
-        .delete(`/admission/member-schools/${req.params.id}`)
+        .delete(`/core/member-schools/${req.params.id}`)
         .then(({ data }) => {
           rs(data);
         });

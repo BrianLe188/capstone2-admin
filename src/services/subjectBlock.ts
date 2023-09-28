@@ -5,7 +5,7 @@ const importExcel = (req: { body: { data: string[] } }): Promise<string> =>
   new Promise((rs, rj) => {
     try {
       request()
-        .post("/admission/subject-blocks/import", req.body)
+        .post("/core/subject-blocks/import", req.body)
         .then(({ data }) => {
           rs(data?.data);
         });
@@ -18,7 +18,7 @@ const getAll = (): Promise<Array<SubjectBlock>> =>
   new Promise((rs, rj) => {
     try {
       request()
-        .get("/admission/subject-blocks")
+        .get("/core/subject-blocks")
         .then(({ data }) => {
           rs(data?.data);
         });
@@ -31,7 +31,7 @@ const create = (req: { body: Partial<SubjectBlock> }) =>
   new Promise((rs, rj) => {
     try {
       request()
-        .post("/admission/subject-blocks", req.body)
+        .post("/core/subject-blocks", req.body)
         .then(({ data }) => {
           rs(data);
         });
@@ -44,7 +44,7 @@ const update = (req: { params: { id: string }; body: Partial<SubjectBlock> }) =>
   new Promise((rs, rj) => {
     try {
       request()
-        .put(`/admission/subject-blocks/${req.params.id}`, req.body)
+        .put(`/core/subject-blocks/${req.params.id}`, req.body)
         .then(({ data }) => {
           rs(data);
         });
@@ -57,7 +57,7 @@ const deleted = (req: { params: { id: string } }) =>
   new Promise((rs, rj) => {
     try {
       request()
-        .delete(`/admission/subject-blocks/${req.params.id}`)
+        .delete(`/core/subject-blocks/${req.params.id}`)
         .then(({ data }) => {
           rs(data);
         });
