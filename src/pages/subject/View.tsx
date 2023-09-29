@@ -9,64 +9,7 @@ import Details from "./components/details";
 import * as XLSX from "xlsx";
 
 const View = () => {
-  const [subject, setSubject] = useState<Array<Subject>>([
-    {
-      id: 'string',
-      name: 'string'
-    },
-    {
-      id: 'string',
-      name: 'string'
-    },
-    {
-      id: 'string',
-      name: 'string'
-    },
-    {
-      id: 'string',
-      name: 'string'
-    },
-    {
-      id: 'string',
-      name: 'string'
-    },
-    {
-      id: 'string',
-      name: 'string'
-    },
-    {
-      id: 'string',
-      name: 'string'
-    },
-    {
-      id: 'string',
-      name: 'string'
-    },
-    {
-      id: 'string',
-      name: 'string'
-    },
-    {
-      id: 'string',
-      name: 'string'
-    },
-    {
-      id: 'string',
-      name: 'string'
-    },
-    {
-      id: 'string',
-      name: 'string'
-    },
-    {
-      id: 'string',
-      name: 'string'
-    },
-    {
-      id: 'string',
-      name: 'string'
-    },
-  ]);
+  const [subject, setSubject] = useState<Array<Subject>>([]);
   const [target, setTarget] = useState<Subject | null>(null);
 
   useEffect(() => {
