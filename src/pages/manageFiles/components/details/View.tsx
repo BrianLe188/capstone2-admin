@@ -16,9 +16,7 @@ const View = ({
   const [details, setDetails] = useState<Partial<File>>({
     id: "",
     name: "",
-    fileExtension: {
-      extension: "",
-    },
+    fileExtension: EFILE.DOCX
   });
 
   useEffect(() => {
@@ -32,24 +30,21 @@ const View = ({
       ...state,
       [name]: value,
     }));
+    console.log(setDetails)
   };
 
   const changeFileExtension = (value: string) => {
     setDetails((state) => ({
       ...state,
-      fileExtension: {
-        extension: value,
-      },
+      fileExtension: EFILE[value as keyof typeof EFILE],
     }));
-    const temp = document.querySelector('.upload')
-    temp?.setAttribute('accept', `.${value}`)
-    console.log(temp)
+    const addFileExtension = document.querySelector('.upload')
+    addFileExtension?.setAttribute('accept', `.${EFILE[value as keyof typeof EFILE]}`)
   };
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleFileUpload = (event : any) => {
     const file = event.target.files[0];
-    console.log(file)
   }
 
   const submit = async () => {
@@ -82,7 +77,6 @@ const View = ({
     } catch (error) {
       toast.error("Error");
     }
-    console.log('a')
   };
 
   return (
@@ -106,13 +100,12 @@ const View = ({
           File Extension
           <select
             id="fileExtension"
-            value={details.fileExtension?.extension}
             onChange={(e) => changeFileExtension(e.target.value)}
             className="border p-2 rounded-lg w-full"
           >
             <option>Select File Extension</option>
             {Object.keys(EFILE).map((file) => (
-              <option value={EFILE[file as keyof typeof EFILE]}>
+              <option value={file}>
                 {file}
               </option>
             ))}
@@ -123,7 +116,7 @@ const View = ({
           <input
             id="file"
             type="file"
-            onChange={(e) => handleFileUpload(e, details.fileExtension?.extension)}
+            onChange={(e) => handleFileUpload(e)}
             className="border p-2 rounded-lg w-full upload"
           />
         </label>

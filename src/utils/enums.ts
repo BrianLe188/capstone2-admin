@@ -8,9 +8,10 @@ export enum ELEVEL {
   AFTER_UNIVERSITY = 'after_university',
 }
 
+
 export enum EFILE {
-  docx = 'docx',
-  pdf = 'pdf',
-  txt = 'txt',
-  xlsx = 'xlsx',
+  DOCX = 'docx',
+  PDF = 'pdf',
+  TXT = 'txt',
+  XLSX = 'xlsx',
 }

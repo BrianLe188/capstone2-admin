@@ -1,5 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { type } from "os";
+import { EFILE } from "./enums";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export type Menu = {
@@ -80,10 +81,5 @@ export type Level = {
 export type File = {
   id: string;
   name: string;
-  fileExtension: Partial<Extension>
+  fileExtension: EFILE;
 };
-
-export type Extension = {
-  id: string;
-  extension: string;
-}
