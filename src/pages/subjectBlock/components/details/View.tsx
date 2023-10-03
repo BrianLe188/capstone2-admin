@@ -1,5 +1,6 @@
+import SubjectService from "@/services/subject";
 import SubjectBlockService from "@/services/subjectBlock";
-import { SubjectBlock } from "@/utils/responseTypes";
+import { Subject, SubjectBlock } from "@/utils/responseTypes";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
@@ -13,8 +14,42 @@ const View = ({
   setTarget: Dispatch<SetStateAction<SubjectBlock | null>>;
 }) => {
   const [details, setDetails] = useState<Partial<SubjectBlock>>({});
+  const [selectSubjects, setSelectSubjects] = useState<Array<string>>([]);
+  const [subject, setSubject] = useState<Array<Subject>>([
+    {
+      id: "1",
+      name: "A01",
+    },
+    {
+      id: "2",
+      name: "A02",
+    },
+    {
+      id: "3",
+      name: "A03",
+    },
+  ]);
+
+  const selectSubject = (id: string) => {
+    if (selectSubjects.includes(id)) {
+      setSelectSubjects((state) => state.filter((item) => item !== id));
+    } else {
+      setSelectSubjects((state) => [...state, id]);
+    }
+  };
+
+  const loadData = async () => {
+    try {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const res = await SubjectService.getAll();
+      setSubject(res || []);
+    } catch (error) {
+      toast.error("Something went wrong!");
+    }
+  };
 
   useEffect(() => {
+    loadData();
     if (data) {
       setDetails(data);
     }
@@ -37,12 +72,13 @@ const View = ({
           params: {
             id: data.id,
           },
-          body: rest,
+          body: { ...rest, subjects: selectSubjects },
         });
       } else {
         res = await SubjectBlockService.create({
           body: {
             ...details,
+            subjects: selectSubjects,
           },
         });
       }
@@ -72,6 +108,21 @@ const View = ({
             className="border p-2 rounded-lg w-full"
           />
         </label>
+      </div>
+      <div className="flex gap-6 flex-wrap">
+        {subject.map((item, index) => (
+          <div className="flex items-center gap-2 mb-2">
+            <label htmlFor={item.name} key={index}>
+              {item.name}
+            </label>
+            <input
+              id={item.name}
+              type="checkbox"
+              onChange={() => selectSubject(item.id)}
+              className="border p-2 rounded-lg"
+            />
+          </div>
+        ))}
       </div>
       <div className="mt-5">
         <button
