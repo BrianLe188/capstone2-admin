@@ -56,6 +56,7 @@ const View = () => {
 
       reader.readAsBinaryString(file);
     }
+    
   };
 
   return (

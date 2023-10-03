@@ -5,5 +5,13 @@ export enum EROLE {
 
 export enum ELEVEL {
   UNIVERSITY = 'university',
-  AFTER_UNIVERSITY = 'after_university'
+  AFTER_UNIVERSITY = 'after_university',
+}
+
+
+export enum EFILE {
+  DOCX = 'docx',
+  PDF = 'pdf',
+  TXT = 'txt',
+  XLSX = 'xlsx',
 }
