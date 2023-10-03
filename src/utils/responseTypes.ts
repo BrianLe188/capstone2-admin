@@ -36,6 +36,7 @@ export type Module = {
 export type SubjectBlock = {
   id: string;
   name: string;
+  subjects: Array<string>;
 };
 
 export type MemberSchool = {
@@ -75,4 +76,4 @@ export type Majors = {
 export type Level = {
   id: string;
   level: string;
-}
+};
