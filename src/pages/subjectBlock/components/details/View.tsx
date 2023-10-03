@@ -15,20 +15,18 @@ const View = ({
 }) => {
   const [details, setDetails] = useState<Partial<SubjectBlock>>({});
   const [selectSubjects, setSelectSubjects] = useState<Array<string>>([]);
-  const [subject, setSubject] = useState<Array<Subject>>([
-    {
-      id: "1",
-      name: "A01",
-    },
-    {
-      id: "2",
-      name: "A02",
-    },
-    {
-      id: "3",
-      name: "A03",
-    },
-  ]);
+  const [subject, setSubject] = useState<Array<Subject>>([]);
+
+  useEffect(() => {
+    loadData();
+    if (data) {
+      setDetails(data);
+      if (data?.subjects) {
+        const ids = data?.subjects.map((item) => item.id);
+        setSelectSubjects(ids);
+      }
+    }
+  }, [data]);
 
   const selectSubject = (id: string) => {
     if (selectSubjects.includes(id)) {
@@ -47,13 +45,6 @@ const View = ({
       toast.error("Something went wrong!");
     }
   };
-
-  useEffect(() => {
-    loadData();
-    if (data) {
-      setDetails(data);
-    }
-  }, [data]);
 
   const changeHandler = (name: string, value: number | string) => {
     setDetails((state) => ({
@@ -120,6 +111,7 @@ const View = ({
               type="checkbox"
               onChange={() => selectSubject(item.id)}
               className="border p-2 rounded-lg"
+              checked={!!selectSubjects.find((i) => i === item.id)}
             />
           </div>
         ))}

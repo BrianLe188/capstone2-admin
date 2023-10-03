@@ -1,5 +1,4 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { type } from "os";
 import { EFILE } from "./enums";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -37,7 +36,7 @@ export type Module = {
 export type SubjectBlock = {
   id: string;
   name: string;
-  subjects: Array<string>;
+  subjects: Array<Subject>;
 };
 
 export type MemberSchool = {
@@ -77,7 +76,7 @@ export type Majors = {
 export type Level = {
   id: string;
   level: string;
-}
+};
 
 export type File = {
   id: string;
