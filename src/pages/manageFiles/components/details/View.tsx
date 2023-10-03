@@ -44,6 +44,7 @@ const View = ({
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleFileUpload = (event : any) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const file = event.target.files[0];
   }
 

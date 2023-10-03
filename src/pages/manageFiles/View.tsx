@@ -7,7 +7,7 @@ import Details from "./components/details";
 import FilesService from "@/services/manageFiles";
 
 const View = () => {
-  const [file, setfile] = useState<Array<File>>([]);
+  const [file, setFile] = useState<Array<File>>([]);
   const [target, setTarget] = useState<File | null>(null);
 
   useEffect(() => {
@@ -18,7 +18,7 @@ const View = () => {
     try {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const res = await FilesService.getAll();
-      setfile(res || []);
+      setFile(res || []);
     } catch (error) {
       toast.error("Something went wrong!");
     }
