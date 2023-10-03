@@ -59,7 +59,15 @@ const defaultMenu: Menu = {
       icon: menu,
       angle_down: angleDown,
       children: [],
-    }
+    },
+    {
+      id: "6",
+      name: "File",
+      path: "/file",
+      icon: menu,
+      angle_down: angleDown,
+      children: [],
+    },
   ],
 };
 

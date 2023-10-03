@@ -9,6 +9,7 @@ import MemberSchool from "@/pages/memberSchool";
 import Subject from "./pages/subject";
 import User from "@/pages/user";
 import Majors from "./pages/majors";
+import File from "./pages/manageFiles"
 
 function App() {
   const router = createBrowserRouter([
@@ -42,6 +43,10 @@ function App() {
         {
           path: "majors",
           element: <Majors />,
+        },
+        {
+          path: "file",
+          element: <File />,
         },
       ],
     },

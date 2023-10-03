@@ -76,3 +76,14 @@ export type Level = {
   id: string;
   level: string;
 }
+
+export type File = {
+  id: string;
+  name: string;
+  fileExtension: Partial<Extension>
+};
+
+export type Extension = {
+  id: string;
+  extension: string;
+}
