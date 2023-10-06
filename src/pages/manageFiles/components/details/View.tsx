@@ -1,7 +1,13 @@
 import FilesService from "@/services/manageFiles";
 import { EFILE } from "@/utils/enums";
-import { File } from "@/utils/responseTypes";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import type { File as FileType } from "@/utils/responseTypes";
+import {
+  ChangeEvent,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react";
 import { toast } from "react-toastify";
 
 const View = ({
@@ -9,15 +15,17 @@ const View = ({
   load,
   setTarget,
 }: {
-  data?: File;
+  data?: FileType;
   load: () => void;
-  setTarget: Dispatch<SetStateAction<File | null>>;
+  setTarget: Dispatch<SetStateAction<FileType | null>>;
 }) => {
-  const [details, setDetails] = useState<Partial<File>>({
+  const [details, setDetails] = useState<Partial<FileType>>({
     id: "",
     name: "",
-    fileExtension: EFILE.DOCX
+    extension: EFILE.DOCX,
+    path: "",
   });
+  const [file, setFile] = useState<File | null>(null);
 
   useEffect(() => {
     if (data) {
@@ -30,44 +38,48 @@ const View = ({
       ...state,
       [name]: value,
     }));
-    console.log(setDetails)
   };
 
   const changeFileExtension = (value: string) => {
     setDetails((state) => ({
       ...state,
-      fileExtension: EFILE[value as keyof typeof EFILE],
+      extension: EFILE[value as keyof typeof EFILE],
     }));
-    const addFileExtension = document.querySelector('.upload')
-    addFileExtension?.setAttribute('accept', `.${EFILE[value as keyof typeof EFILE]}`)
+    const addFileExtension = document.querySelector(".upload");
+    addFileExtension?.setAttribute(
+      "accept",
+      `.${EFILE[value as keyof typeof EFILE]}`
+    );
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const handleFileUpload = (event : any) => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const file = event.target.files[0];
-  }
+  const handleFileUpload = (event: ChangeEvent<HTMLInputElement>) => {
+    const target = event.target;
+    if (target && target.files && target.files[0]) {
+      setFile(target.files[0]);
+    }
+  };
 
   const submit = async () => {
     try {
       let res;
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const formdata = new FormData();
+      if (details.name && details.extension && file) {
+        formdata.append("name", details.name);
+        formdata.append("extension", details.extension);
+        formdata.append("file", file);
+      }
       if (data?.id) {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { id, ...rest } = details;
         res = await FilesService.update({
           params: {
             id: data.id,
           },
-          body: rest,
+          body: formdata,
         });
       } else {
         res = await FilesService.create({
-          body: {
-            file: {
-              name: details.name,
-              fileExtension: details.fileExtension,
-            },
-          },
+          body: formdata,
         });
       }
       if (res) {
@@ -94,10 +106,7 @@ const View = ({
             className="border p-2 rounded-lg w-full"
           />
         </label>
-        <label
-          htmlFor="fileExtension"
-          className="flex items-center gap-3 mb-2"
-        >
+        <label htmlFor="fileExtension" className="flex items-center gap-3 mb-2">
           File Extension
           <select
             id="fileExtension"
@@ -106,9 +115,7 @@ const View = ({
           >
             <option>Select File Extension</option>
             {Object.keys(EFILE).map((file) => (
-              <option value={file}>
-                {file}
-              </option>
+              <option value={file}>{file}</option>
             ))}
           </select>
         </label>
@@ -119,6 +126,7 @@ const View = ({
             type="file"
             onChange={(e) => handleFileUpload(e)}
             className="border p-2 rounded-lg w-full upload"
+            disabled={!details.extension}
           />
         </label>
       </div>

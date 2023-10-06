@@ -81,5 +81,6 @@ export type Level = {
 export type File = {
   id: string;
   name: string;
-  fileExtension: EFILE;
+  extension: EFILE;
+  path: string;
 };
