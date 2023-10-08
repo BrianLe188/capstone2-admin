@@ -35,7 +35,7 @@ const View = ({
         {data.id}
       </th>
       <td className="px-6 py-4">{data.name}</td>
-      <td className="px-6 py-4">{data.fileExtension.extension}</td>
+      <td className="px-6 py-4">{data.extension}</td>
       <td className="px-6 py-4">
         <button className="text-green-700 mr-2" onClick={onEdit}>
           Edit

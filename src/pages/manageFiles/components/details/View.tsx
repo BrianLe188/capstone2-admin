@@ -43,14 +43,15 @@ const View = ({
   const changeFileExtension = (value: string) => {
     setDetails((state) => ({
       ...state,
-      extension: EFILE[value as keyof typeof EFILE],
+      extension: EFILE[value.toUpperCase() as keyof typeof EFILE],
     }));
     const addFileExtension = document.querySelector(".upload");
     addFileExtension?.setAttribute(
       "accept",
-      `.${EFILE[value as keyof typeof EFILE]}`
+      `.${EFILE[value.toUpperCase() as keyof typeof EFILE]}`
     );
   };
+  console.log(details);
 
   const handleFileUpload = (event: ChangeEvent<HTMLInputElement>) => {
     const target = event.target;
@@ -112,10 +113,11 @@ const View = ({
             id="fileExtension"
             onChange={(e) => changeFileExtension(e.target.value)}
             className="border p-2 rounded-lg w-full"
+            value={details.extension}
           >
             <option>Select File Extension</option>
             {Object.keys(EFILE).map((file) => (
-              <option value={file}>{file}</option>
+              <option value={EFILE[file as keyof typeof EFILE]}>{file}</option>
             ))}
           </select>
         </label>
