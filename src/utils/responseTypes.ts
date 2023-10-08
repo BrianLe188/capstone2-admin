@@ -43,8 +43,8 @@ export type MemberSchool = {
   id: string;
   name: string;
   link: string;
-  university: boolean;
-  afterUniversity: boolean;
+  university?: boolean;
+  afterUniversity?: boolean;
 };
 
 export type User = {
