@@ -27,7 +27,9 @@ const getAll = (): Promise<Array<SubjectBlock>> =>
     }
   });
 
-const create = (req: { body: Partial<SubjectBlock> }) =>
+const create = (req: {
+  body: Partial<{ name: string; subjects: Array<string> }>;
+}) =>
   new Promise((rs, rj) => {
     try {
       request()
@@ -40,7 +42,10 @@ const create = (req: { body: Partial<SubjectBlock> }) =>
     }
   });
 
-const update = (req: { params: { id: string }; body: Partial<SubjectBlock> }) =>
+const update = (req: {
+  params: { id: string };
+  body: Partial<{ name: string; subjects: Array<string> }>;
+}) =>
   new Promise((rs, rj) => {
     try {
       request()
