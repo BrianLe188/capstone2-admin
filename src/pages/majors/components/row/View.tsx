@@ -37,7 +37,7 @@ const View = ({
       <td className="px-6 py-4">{data.name}</td>
       <td className="px-6 py-4">{data.industryCode}</td>
       <td className="px-6 py-4">{data.specializedCode}</td>
-      <td className="px-6 py-4">{data.educationLevel.level}</td>
+      <td className="px-6 py-4">{data.educationalLevel}</td>
       <td className="px-6 py-4">
         <button className="text-green-700 mr-2" onClick={onEdit}>
           Edit

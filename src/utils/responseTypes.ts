@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { EFILE } from "./enums";
+import { EFILE, ELEVEL } from "./enums";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export type Menu = {
@@ -70,12 +70,7 @@ export type Majors = {
   name: string;
   industryCode: string;
   specializedCode: string;
-  educationLevel: Partial<Level>;
-};
-
-export type Level = {
-  id: string;
-  level: string;
+  educationalLevel: ELEVEL;
 };
 
 export type File = {
