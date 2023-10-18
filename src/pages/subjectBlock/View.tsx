@@ -47,11 +47,12 @@ const View = () => {
           return toast.warn("Wrong format");
         }
 
-        const [, ...rest] = columnData.map((row: any) => row.name);
+        const [, ...rest] = columnData.map((row: any) => row.name.trim());
         const res: string = await SubjectBlockService.importExcel({
           body: { data: rest },
         });
         toast.success(res);
+        loadData();
       };
 
       reader.readAsBinaryString(file);
