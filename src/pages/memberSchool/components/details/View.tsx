@@ -86,8 +86,7 @@ const View = ({
           University
           <input
             id="university"
-            type="radio"
-            name="check"
+            type="checkbox"
             checked={details?.university}
             onChange={(e) => changeHandler("university", e.target.checked)}
             className="border p-2 rounded-lg w-full"
@@ -100,8 +99,7 @@ const View = ({
           After University
           <input
             id="afterUniversity"
-            type="radio"
-            name="check"
+            type="checkbox"
             checked={details?.afterUniversity}
             onChange={(e) => changeHandler("afterUniversity", e.target.checked)}
             className="border p-2 rounded-lg w-full"

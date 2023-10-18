@@ -14,6 +14,15 @@ const defaultMenu: Menu = {
   values: [
     {
       id: "1",
+      name: "Dashboard",
+      path: "/",
+      icon: menu,
+      angle_down: angleDown,
+      children: [],
+    },
+    {
+      
+      id: "2",
       name: "Modules",
       path: "/modules",
       icon: menu,
@@ -21,7 +30,7 @@ const defaultMenu: Menu = {
       children: [],
     },
     {
-      id: "2",
+      id: "3",
       name: "SubjectBlock",
       path: "/subject-block",
       icon: menu,
@@ -29,7 +38,7 @@ const defaultMenu: Menu = {
       children: [],
     },
     {
-      id: "3",
+      id: "4",
       name: "Member School",
       path: "/member-school",
       icon: menu,
@@ -37,7 +46,7 @@ const defaultMenu: Menu = {
       children: [],
     },
     {
-      id: "4",
+      id: "5",
       name: "Subject",
       path: "/subject",
       icon: menu,
@@ -45,7 +54,7 @@ const defaultMenu: Menu = {
       children: [],
     },
     {
-      id: "5",
+      id: "6",
       name: "User",
       path: "/user",
       icon: menu,
@@ -53,7 +62,7 @@ const defaultMenu: Menu = {
       children: [],
     },
     {
-      id: "6",
+      id: "7",
       name: "Majors",
       path: "/majors",
       icon: menu,
@@ -61,17 +70,9 @@ const defaultMenu: Menu = {
       children: [],
     },
     {
-      id: "7",
+      id: "8",
       name: "File",
       path: "/file",
-      icon: menu,
-      angle_down: angleDown,
-      children: [],
-    },
-    {
-      id: "8",
-      name: "Dashboard",
-      path: "/",
       icon: menu,
       angle_down: angleDown,
       children: [],
