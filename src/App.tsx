@@ -10,6 +10,7 @@ import Subject from "./pages/subject";
 import User from "@/pages/user";
 import Majors from "./pages/majors";
 import File from "./pages/manageFiles"
+import Dashboard from "./pages/dashboard";
 
 function App() {
   const router = createBrowserRouter([
@@ -18,7 +19,7 @@ function App() {
       children: [
         {
           path: "/",
-          element: <>Dashboard</>,
+          element: <Dashboard />,
         },
         {
           path: "modules",
