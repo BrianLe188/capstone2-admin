@@ -18,9 +18,7 @@ const View = ({
     name: "",
     industryCode: "",
     specializedCode: "",
-    educationLevel: {
-      level: "",
-    },
+    educationalLevel: ELEVEL.UNIVERSITY,
   });
 
   useEffect(() => {
@@ -33,15 +31,6 @@ const View = ({
     setDetails((state) => ({
       ...state,
       [name]: value,
-    }));
-  };
-
-  const changeLevel = (value: string) => {
-    setDetails((state) => ({
-      ...state,
-      educationLevel: {
-        level: value,
-      },
     }));
   };
 
@@ -60,12 +49,10 @@ const View = ({
       } else {
         res = await MajorsService.create({
           body: {
-            major: {
-              name: details.name,
-              industryCode: details.industryCode,
-              specializedCode: details.specializedCode,
-              educationLevel: details.educationLevel,
-            },
+            name: details.name,
+            industryCode: details.industryCode,
+            specializedCode: details.specializedCode,
+            educationalLevel: details.educationalLevel,
           },
         });
       }
@@ -123,8 +110,8 @@ const View = ({
           Education Level
           <select
             id="educationLevel"
-            value={details.educationLevel?.level}
-            onChange={(e) => changeLevel(e.target.value)}
+            value={details.educationalLevel}
+            onChange={(e) => changeHandler("educationalLevel", e.target.value)}
             className="border p-2 rounded-lg w-full"
           >
             <option>Select Education Level</option>
