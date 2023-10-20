@@ -15,7 +15,7 @@ const View = ({
 }) => {
   const [details, setDetails] = useState<Partial<SubjectBlock>>({});
   const [selectSubjects, setSelectSubjects] = useState<Array<string>>([]);
-  const [subject, setSubject] = useState<Array<Subject>>([]);
+  const [subjects, setSubjects] = useState<Array<Subject>>([]);
 
   useEffect(() => {
     loadData();
@@ -40,7 +40,7 @@ const View = ({
     try {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const res = await SubjectService.getAll();
-      setSubject(res || []);
+      setSubjects(res || []);
     } catch (error) {
       toast.error("Something went wrong!");
     }
@@ -101,7 +101,7 @@ const View = ({
         </label>
       </div>
       <div className="flex gap-6 flex-wrap max-h-96 overflow-auto">
-        {subject.map((item, index) => (
+        {subjects.map((item, index) => (
           <div className="flex items-center gap-2 mb-2">
             <label htmlFor={item.name} key={index}>
               {item.name}

@@ -1,6 +1,7 @@
 import MajorsService from "@/services/majors";
+import SubjectBlockService from "@/services/subjectBlock";
 import { ELEVEL } from "@/utils/enums";
-import { Majors } from "@/utils/responseTypes";
+import { Majors, SubjectBlock } from "@/utils/responseTypes";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
@@ -20,12 +21,39 @@ const View = ({
     specializedCode: "",
     educationalLevel: ELEVEL.UNIVERSITY,
   });
+  const [subjectBlocks, setSubjectBlocks] = useState<Array<SubjectBlock>>([]);
+  const [
+    selectSubjectBlocksBaseOnExamResult,
+    setSelectSubjectBlocksBaseOnExamResult,
+  ] = useState<Array<string>>([]);
+  const [
+    selectSubjectBlocksBaseOnTranscript,
+    setSelectSubjectBlocksBaseOnTranscript,
+  ] = useState<Array<string>>([]);
 
   useEffect(() => {
+    loadData();
     if (data) {
       setDetails(data);
+      if (data?.basedOnHighSchoolExamResults) {
+        const ids = data?.basedOnHighSchoolExamResults.map((item) => item.id);
+        setSelectSubjectBlocksBaseOnExamResult(ids);
+      }
+      if (data?.basedOnHighSchoolTranscripts) {
+        const ids = data?.basedOnHighSchoolTranscripts.map((item) => item.id);
+        setSelectSubjectBlocksBaseOnTranscript(ids);
+      }
     }
   }, [data]);
+
+  const loadData = async () => {
+    try {
+      const res = await SubjectBlockService.getAll();
+      setSubjectBlocks(res || []);
+    } catch (error) {
+      toast.error("Something went wrong!");
+    }
+  };
 
   const changeHandler = (name: string, value: number | string) => {
     setDetails((state) => ({
@@ -44,7 +72,11 @@ const View = ({
           params: {
             id: data.id,
           },
-          body: rest,
+          body: {
+            ...rest,
+            basedOnHighSchoolExamResults: selectSubjectBlocksBaseOnExamResult,
+            basedOnHighSchoolTranscripts: selectSubjectBlocksBaseOnTranscript,
+          },
         });
       } else {
         res = await MajorsService.create({
@@ -53,6 +85,8 @@ const View = ({
             industryCode: details.industryCode,
             specializedCode: details.specializedCode,
             educationalLevel: details.educationalLevel,
+            basedOnHighSchoolExamResults: selectSubjectBlocksBaseOnExamResult,
+            basedOnHighSchoolTranscripts: selectSubjectBlocksBaseOnTranscript,
           },
         });
       }
@@ -63,6 +97,31 @@ const View = ({
       }
     } catch (error) {
       toast.error("Error");
+    }
+  };
+
+  const selectSubjectBlock = (id: string, type: "exam" | "transcript") => {
+    switch (type) {
+      case "exam": {
+        if (selectSubjectBlocksBaseOnExamResult.includes(id)) {
+          setSelectSubjectBlocksBaseOnExamResult((state) =>
+            state.filter((item) => item !== id)
+          );
+        } else {
+          setSelectSubjectBlocksBaseOnExamResult((state) => [...state, id]);
+        }
+        break;
+      }
+      case "transcript": {
+        if (selectSubjectBlocksBaseOnTranscript.includes(id)) {
+          setSelectSubjectBlocksBaseOnTranscript((state) =>
+            state.filter((item) => item !== id)
+          );
+        } else {
+          setSelectSubjectBlocksBaseOnTranscript((state) => [...state, id]);
+        }
+        break;
+      }
     }
   };
 
@@ -122,6 +181,55 @@ const View = ({
             ))}
           </select>
         </label>
+        <div>
+          <div>
+            <label htmlFor="">Base on exam result</label>
+            <div className="flex flex-wrap h-48 overflow-auto">
+              {subjectBlocks.map((item, index) => (
+                <div className="flex items-center gap-2 mb-2">
+                  <label htmlFor={item.name} key={index}>
+                    {item.name}
+                  </label>
+                  <input
+                    id={item.name}
+                    type="checkbox"
+                    onChange={() => selectSubjectBlock(item.id, "exam")}
+                    className="border p-2 rounded-lg"
+                    checked={
+                      !!selectSubjectBlocksBaseOnExamResult.find(
+                        (i) => i === item.id
+                      )
+                    }
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+          <hr />
+          <div>
+            <label htmlFor="">Base on transcript</label>
+            <div className="flex flex-wrap h-48 overflow-auto">
+              {subjectBlocks.map((item, index) => (
+                <div className="flex items-center gap-2 mb-2">
+                  <label htmlFor={item.name} key={index}>
+                    {item.name}
+                  </label>
+                  <input
+                    id={item.name}
+                    type="checkbox"
+                    onChange={() => selectSubjectBlock(item.id, "transcript")}
+                    className="border p-2 rounded-lg"
+                    checked={
+                      !!selectSubjectBlocksBaseOnTranscript.find(
+                        (i) => i === item.id
+                      )
+                    }
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
       <div className="mt-5">
         <button

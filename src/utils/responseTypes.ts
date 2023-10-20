@@ -71,6 +71,8 @@ export type Majors = {
   industryCode: string;
   specializedCode: string;
   educationalLevel: ELEVEL;
+  basedOnHighSchoolExamResults: Array<SubjectBlock>;
+  basedOnHighSchoolTranscripts: Array<SubjectBlock>;
 };
 
 export type File = {

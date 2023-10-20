@@ -28,7 +28,7 @@ const create = (req: { body: any }) =>
     }
   });
 
-const update = (req: { params: { id: string }; body: Partial<Majors> }) =>
+const update = (req: { params: { id: string }; body: any }) =>
   new Promise((rs, rj) => {
     try {
       request()
