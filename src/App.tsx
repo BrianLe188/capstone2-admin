@@ -9,8 +9,9 @@ import MemberSchool from "@/pages/memberSchool";
 import Subject from "./pages/subject";
 import User from "@/pages/user";
 import Majors from "./pages/majors";
-import File from "./pages/manageFiles"
+import File from "./pages/manageFiles";
 import Dashboard from "./pages/dashboard";
+import SubMajors from "./pages/sub-majors";
 
 function App() {
   const router = createBrowserRouter([
@@ -44,6 +45,10 @@ function App() {
         {
           path: "majors",
           element: <Majors />,
+        },
+        {
+          path: "sub-majors",
+          element: <SubMajors />,
         },
         {
           path: "file",

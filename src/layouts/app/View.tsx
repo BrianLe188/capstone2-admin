@@ -21,7 +21,6 @@ const defaultMenu: Menu = {
       children: [],
     },
     {
-      
       id: "2",
       name: "Modules",
       path: "/modules",
@@ -73,6 +72,14 @@ const defaultMenu: Menu = {
       id: "8",
       name: "File",
       path: "/file",
+      icon: menu,
+      angle_down: angleDown,
+      children: [],
+    },
+    {
+      id: "9",
+      name: "Sub major",
+      path: "/sub-majors",
       icon: menu,
       angle_down: angleDown,
       children: [],

@@ -2,15 +2,15 @@
 import { useEffect, useState } from "react";
 import Row from "./components/row";
 import { toast } from "react-toastify";
-import { Majors } from "@/utils/responseTypes";
+import { SubMajor } from "@/utils/responseTypes";
 import { createPortal } from "react-dom";
 import Details from "./components/details";
-import MajorsService from "@/services/majors";
 import * as XLSX from "xlsx";
+import SubMajorsService from "@/services/sub-majors";
 
 const View = () => {
-  const [majors, setMajors] = useState<Array<Majors>>([]);
-  const [target, setTarget] = useState<Majors | null>(null);
+  const [majors, setMajors] = useState<Array<SubMajor>>([]);
+  const [target, setTarget] = useState<SubMajor | null>(null);
 
   useEffect(() => {
     loadData();
@@ -19,7 +19,7 @@ const View = () => {
   const loadData = async () => {
     try {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const res = await MajorsService.getAll();
+      const res = await SubMajorsService.getAll();
       setMajors(res || []);
     } catch (error) {
       toast.error("Something went wrong!");
@@ -40,14 +40,14 @@ const View = () => {
         const sheet = workbook.Sheets[sheetName];
 
         const columnData = XLSX.utils.sheet_to_json(sheet, {
-          header: ["name", "educationalLevel", "code"],
+          header: ["name", "code"],
           range: 1,
         });
         if (!columnData) {
           return toast.warn("Wrong format");
         }
 
-        const res: string = await MajorsService.importExcel({
+        const res: string = await SubMajorsService.importExcel({
           body: { data: columnData },
         });
         toast.success(res);
@@ -67,7 +67,7 @@ const View = () => {
       <div className="mt-3 mx-3">
         <button
           className="bg-green-200 w-20 py-2 rounded-md mr-5"
-          onClick={() => setTarget({} as Majors)}
+          onClick={() => setTarget({} as SubMajor)}
         >
           New
         </button>
@@ -99,9 +99,6 @@ const View = () => {
                 </th>
                 <th scope="col" className="px-6 py-3">
                   Code
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Education level
                 </th>
                 <th scope="col" className="px-6 py-3">
                   Action

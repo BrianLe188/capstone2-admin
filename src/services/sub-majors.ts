@@ -6,7 +6,7 @@ const getAll = (): Promise<Array<Majors>> =>
   new Promise((rs, rj) => {
     try {
       request()
-        .get("/core/majors")
+        .get("/core/submajors")
         .then(({ data }) => {
           rs(data?.data);
         });
@@ -19,7 +19,7 @@ const create = (req: { body: any }) =>
   new Promise((rs, rj) => {
     try {
       request()
-        .post("/core/majors", req.body)
+        .post("/core/submajors", req.body)
         .then(({ data }) => {
           rs(data);
         });
@@ -32,7 +32,7 @@ const update = (req: { params: { id: string }; body: any }) =>
   new Promise((rs, rj) => {
     try {
       request()
-        .put(`/core/majors/${req.params.id}`, req.body)
+        .put(`/core/submajors/${req.params.id}`, req.body)
         .then(({ data }) => {
           rs(data);
         });
@@ -45,7 +45,7 @@ const deleted = (req: { params: { id: string } }) =>
   new Promise((rs, rj) => {
     try {
       request()
-        .delete(`/core/majors/${req.params.id}`)
+        .delete(`/core/submajors/${req.params.id}`)
         .then(({ data }) => {
           rs(data);
         });
@@ -58,7 +58,7 @@ const importExcel = (req: { body: { data: unknown[] } }): Promise<string> =>
   new Promise((rs, rj) => {
     try {
       request()
-        .post("/core/majors/import", req.body)
+        .post("/core/submajors/import", req.body)
         .then(({ data }) => {
           rs(data?.data);
         });
@@ -67,7 +67,7 @@ const importExcel = (req: { body: { data: unknown[] } }): Promise<string> =>
     }
   });
 
-const MajorsService = {
+const SubMajorsService = {
   getAll,
   create,
   update,
@@ -75,4 +75,4 @@ const MajorsService = {
   importExcel,
 };
 
-export default MajorsService;
+export default SubMajorsService;

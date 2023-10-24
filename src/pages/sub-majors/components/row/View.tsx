@@ -1,5 +1,5 @@
-import MajorsService from "@/services/majors";
-import { Majors } from "@/utils/responseTypes";
+import SubMajorsService from "@/services/sub-majors";
+import { SubMajor } from "@/utils/responseTypes";
 import { Dispatch, SetStateAction } from "react";
 import { toast } from "react-toastify";
 
@@ -9,14 +9,14 @@ const View = ({
   setTarget,
   load,
 }: {
-  data: Majors;
+  data: SubMajor;
   onEdit?: () => void;
-  setTarget: Dispatch<SetStateAction<Majors | null>>;
+  setTarget: Dispatch<SetStateAction<SubMajor | null>>;
   load: () => void;
 }) => {
   const deleted = async () => {
     try {
-      await MajorsService.deleted({
+      await SubMajorsService.deleted({
         params: {
           id: data.id,
         },
@@ -36,7 +36,6 @@ const View = ({
       </th>
       <td className="px-6 py-4">{data.name}</td>
       <td className="px-6 py-4">{data.code}</td>
-      <td className="px-6 py-4">{data.educationalLevel}</td>
       <td className="px-6 py-4">
         <button className="text-green-700 mr-2" onClick={onEdit}>
           Edit

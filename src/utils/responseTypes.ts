@@ -68,11 +68,11 @@ export type Subject = {
 export type Majors = {
   id: string;
   name: string;
-  industryCode: string;
-  specializedCode: string;
+  code: string;
   educationalLevel: ELEVEL;
   basedOnHighSchoolExamResults: Array<SubjectBlock>;
   basedOnHighSchoolTranscripts: Array<SubjectBlock>;
+  description: string;
 };
 
 export type File = {
@@ -80,4 +80,11 @@ export type File = {
   name: string;
   extension: EFILE;
   path: string;
+};
+
+export type SubMajor = {
+  id: string;
+  name: string;
+  code: string;
+  description: string;
 };

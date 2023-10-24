@@ -17,9 +17,9 @@ const View = ({
   const [details, setDetails] = useState<Partial<Majors>>({
     id: "",
     name: "",
-    industryCode: "",
-    specializedCode: "",
+    code: "",
     educationalLevel: ELEVEL.UNIVERSITY,
+    description: "",
   });
   const [subjectBlocks, setSubjectBlocks] = useState<Array<SubjectBlock>>([]);
   const [
@@ -82,8 +82,7 @@ const View = ({
         res = await MajorsService.create({
           body: {
             name: details.name,
-            industryCode: details.industryCode,
-            specializedCode: details.specializedCode,
+            code: details.code,
             educationalLevel: details.educationalLevel,
             basedOnHighSchoolExamResults: selectSubjectBlocksBaseOnExamResult,
             basedOnHighSchoolTranscripts: selectSubjectBlocksBaseOnTranscript,
@@ -139,26 +138,22 @@ const View = ({
             className="border p-2 rounded-lg w-full"
           />
         </label>
-        <label htmlFor="industryCode" className="flex items-center gap-3 mb-2">
-          Industry Code
+        <label htmlFor="code" className="flex items-center gap-3 mb-2">
+          Code
           <input
-            id="industryCode"
+            id="code"
             type="text"
-            value={details?.industryCode}
-            onChange={(e) => changeHandler("industryCode", e.target.value)}
+            value={details?.code}
+            onChange={(e) => changeHandler("code", e.target.value)}
             className="border p-2 rounded-lg w-full"
           />
         </label>
-        <label
-          htmlFor="specializedCode"
-          className="flex items-center gap-3 mb-2"
-        >
-          Specialized Code
-          <input
-            id="specializedCode"
-            type="text"
-            value={details?.specializedCode}
-            onChange={(e) => changeHandler("specializedCode", e.target.value)}
+        <label htmlFor="description" className="flex items-center gap-3 mb-2">
+          Description
+          <textarea
+            id="description"
+            value={details?.description}
+            onChange={(e) => changeHandler("description", e.target.value)}
             className="border p-2 rounded-lg w-full"
           />
         </label>
