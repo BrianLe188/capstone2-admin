@@ -14,7 +14,9 @@ const getAll = (): Promise<Array<MemberSchool>> =>
     }
   });
 
-const create = (req: { body: Partial<MemberSchool> }) =>
+const create = (req: {
+  body: Partial<Omit<MemberSchool, "majors"> & { majors: Array<string> }>;
+}) =>
   new Promise((rs, rj) => {
     try {
       request()
@@ -27,7 +29,10 @@ const create = (req: { body: Partial<MemberSchool> }) =>
     }
   });
 
-const update = (req: { params: { id: string }; body: Partial<MemberSchool> }) =>
+const update = (req: {
+  params: { id: string };
+  body: Partial<Omit<MemberSchool, "majors"> & { majors: Array<string> }>;
+}) =>
   new Promise((rs, rj) => {
     try {
       request()

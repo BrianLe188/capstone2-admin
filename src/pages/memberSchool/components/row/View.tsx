@@ -37,8 +37,8 @@ const View = ({
       <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
         {data.link}
       </td>
-      <td className="px-6 py-4">{data.university}</td>
-      <td className="px-6 py-4">{data.afterUniversity}</td>
+      <td className="px-6 py-4">{data.university && "Y"}</td>
+      <td className="px-6 py-4">{data.afterUniversity && "Y"}</td>
       <td className="px-6 py-4">
         <button className="text-green-700 mr-2" onClick={onEdit}>
           Edit

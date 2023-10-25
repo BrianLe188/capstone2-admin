@@ -1,5 +1,6 @@
+import MajorsService from "@/services/majors";
 import MemberSchoolService from "@/services/memberSchool";
-import { MemberSchool } from "@/utils/responseTypes";
+import type { Majors, MemberSchool } from "@/utils/responseTypes";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
@@ -13,12 +14,25 @@ const View = ({
   setTarget: Dispatch<SetStateAction<MemberSchool | null>>;
 }) => {
   const [details, setDetails] = useState<Partial<MemberSchool>>({});
+  const [majors, setMajors] = useState<Array<Majors>>([]);
+  const [selectedMajors, setSelectedMajors] = useState<Array<string>>([]);
 
   useEffect(() => {
+    loadMajors();
     if (data) {
       setDetails(data);
+      if (Array.isArray(data?.majors) && data.majors?.length > 0) {
+        setSelectedMajors(data.majors.map((item) => item.id));
+      }
     }
   }, [data]);
+
+  const loadMajors = async () => {
+    const res = await MajorsService.getAll();
+    if (res) {
+      setMajors(res);
+    }
+  };
 
   const changeHandler = (name: string, value: number | string | boolean) => {
     setDetails((state) => ({
@@ -37,12 +51,13 @@ const View = ({
           params: {
             id: data.id,
           },
-          body: rest,
+          body: { ...rest, majors: selectedMajors },
         });
       } else {
         res = await MemberSchoolService.create({
           body: {
             ...details,
+            majors: selectedMajors,
           },
         });
       }
@@ -53,6 +68,14 @@ const View = ({
       }
     } catch (error) {
       toast.error("Error");
+    }
+  };
+
+  const selectMajor = (value: string) => {
+    if (selectedMajors.includes(value)) {
+      setSelectedMajors((state) => state.filter((item) => item !== value));
+    } else {
+      setSelectedMajors((state) => [...state, value]);
     }
   };
 
@@ -105,6 +128,20 @@ const View = ({
             className="border p-2 rounded-lg w-full"
           />
         </label>
+        <div className="flex flex-wrap gap-3 max-h-96 overflow-auto">
+          {majors.map((item) => (
+            <div key={item.id}>
+              <input
+                id={item.id}
+                type="checkbox"
+                className="mr-1"
+                checked={!!selectedMajors.find((i) => i === item.id)}
+                onChange={() => selectMajor(item.id)}
+              />
+              <label htmlFor={item.id}>{item.name}</label>
+            </div>
+          ))}
+        </div>
       </div>
       <div className="mt-5">
         <button

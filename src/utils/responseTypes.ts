@@ -45,6 +45,7 @@ export type MemberSchool = {
   link: string;
   university?: boolean;
   afterUniversity?: boolean;
+  majors: Array<Majors>;
 };
 
 export type User = {
