@@ -1,5 +1,6 @@
+import MajorsService from "@/services/majors";
 import SubMajorsService from "@/services/sub-majors";
-import { SubMajor } from "@/utils/responseTypes";
+import { Majors, SubMajor } from "@/utils/responseTypes";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
@@ -17,11 +18,17 @@ const View = ({
     name: "",
     code: "",
     description: "",
+    majorId: "",
   });
+  const [majors, setMajors] = useState<Array<Majors>>([]);
 
   useEffect(() => {
+    loadMajors();
     if (data) {
-      setDetails(data);
+      setDetails({
+        ...data,
+        majorId: data.major?.id || "",
+      });
     }
   }, [data]);
 
@@ -30,6 +37,13 @@ const View = ({
       ...state,
       [name]: value,
     }));
+  };
+
+  const loadMajors = async () => {
+    const res = await MajorsService.getAll();
+    if (res) {
+      setMajors(res);
+    }
   };
 
   const submit = async () => {
@@ -94,6 +108,24 @@ const View = ({
             className="border p-2 rounded-lg w-full"
           />
         </label>
+        <div>
+          <label htmlFor="majorid">Major</label>
+          <div className="h-96 overflow-auto flex flex-wrap gap-3">
+            {majors.map((item) => (
+              <label htmlFor={item.id}>
+                <input
+                  type="radio"
+                  name="major"
+                  id={item.id}
+                  className="mr-1"
+                  checked={details.majorId === item.id}
+                  onChange={() => changeHandler("majorId", item.id)}
+                />
+                {item.name}
+              </label>
+            ))}
+          </div>
+        </div>
       </div>
       <div className="mt-5">
         <button

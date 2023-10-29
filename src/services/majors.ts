@@ -67,12 +67,28 @@ const importExcel = (req: { body: { data: unknown[] } }): Promise<string> =>
     }
   });
 
+const importExcelSubjectBlockIntoMajor = (req: {
+  body: { data: unknown[] };
+}): Promise<string> =>
+  new Promise((rs, rj) => {
+    try {
+      request()
+        .post("/core/majors/import-subjectblock", req.body)
+        .then(({ data }) => {
+          rs(data?.data);
+        });
+    } catch (error) {
+      rj(error);
+    }
+  });
+
 const MajorsService = {
   getAll,
   create,
   update,
   deleted,
   importExcel,
+  importExcelSubjectBlockIntoMajor,
 };
 
 export default MajorsService;

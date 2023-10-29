@@ -26,7 +26,7 @@ const View = () => {
     }
   };
 
-  const handleFileUpload = (event: any) => {
+  const handleFileUpload = (event: any, type: string) => {
     const file = event.target.files[0];
 
     if (file) {
@@ -38,18 +38,42 @@ const View = () => {
 
         const sheetName = workbook.SheetNames[0];
         const sheet = workbook.Sheets[sheetName];
+        let res: string = "";
 
-        const columnData = XLSX.utils.sheet_to_json(sheet, {
-          header: ["name", "educationalLevel", "code"],
-          range: 1,
-        });
-        if (!columnData) {
-          return toast.warn("Wrong format");
+        if (type === "major") {
+          const columnData = XLSX.utils.sheet_to_json(sheet, {
+            header: ["name", "educationalLevel", "code"],
+            range: 1,
+          });
+          if (!columnData) {
+            return toast.warn("Wrong format");
+          }
+
+          res = await MajorsService.importExcel({
+            body: { data: columnData },
+          });
         }
 
-        const res: string = await MajorsService.importExcel({
-          body: { data: columnData },
-        });
+        if (type === "subjectblock-major") {
+          const columnData: { code: number; result: string; script: string }[] =
+            XLSX.utils.sheet_to_json(sheet, {
+              header: ["code", "script", "result"],
+              range: 1,
+            });
+          if (!columnData) {
+            return toast.warn("Wrong format");
+          }
+
+          res = await MajorsService.importExcelSubjectBlockIntoMajor({
+            body: {
+              data: columnData.map((item) => ({
+                ...item,
+                code: item.code.toString(),
+              })),
+            },
+          });
+        }
+
         toast.success(res);
       };
 
@@ -82,7 +106,21 @@ const View = () => {
             hidden
             id="nameImport"
             type="file"
-            onChange={(e) => handleFileUpload(e)}
+            onChange={(e) => handleFileUpload(e, "major")}
+          />
+        </button>
+        <button className="py-2 rounded-md">
+          <label
+            htmlFor="subjectBlockImport"
+            className="cursor-pointer ml-6 p-3 bg-gray-200 rounded-md"
+          >
+            Import subject blocks
+          </label>
+          <input
+            hidden
+            id="subjectBlockImport"
+            type="file"
+            onChange={(e) => handleFileUpload(e, "subjectblock-major")}
           />
         </button>
       </div>

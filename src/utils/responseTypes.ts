@@ -88,4 +88,6 @@ export type SubMajor = {
   name: string;
   code: string;
   description: string;
+  majorId: string;
+  major: Majors;
 };
