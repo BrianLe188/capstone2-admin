@@ -21,6 +21,14 @@ const defaultMenu: Menu = {
       children: [],
     },
     {
+      id: "10",
+      name: "Application",
+      path: "/application",
+      icon: menu,
+      angle_down: angleDown,
+      children: [],
+    },
+    {
       id: "2",
       name: "Modules",
       path: "/modules",

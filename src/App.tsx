@@ -12,6 +12,7 @@ import Majors from "./pages/majors";
 import File from "./pages/manageFiles";
 import Dashboard from "./pages/dashboard";
 import SubMajors from "./pages/sub-majors";
+import Application from "./pages/application";
 
 function App() {
   const router = createBrowserRouter([
@@ -53,6 +54,10 @@ function App() {
         {
           path: "file",
           element: <File />,
+        },
+        {
+          path: "application",
+          element: <Application />,
         },
       ],
     },

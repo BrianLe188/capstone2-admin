@@ -90,4 +90,5 @@ export type SubMajor = {
   description: string;
   majorId: string;
   major: Majors;
+  tuition: number;
 };

@@ -20,7 +20,7 @@ const View = () => {
     try {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const res = await SubMajorsService.getAll();
-      setMajors(res || []);
+      setMajors(res);
     } catch (error) {
       toast.error("Something went wrong!");
     }
@@ -99,6 +99,9 @@ const View = () => {
                 </th>
                 <th scope="col" className="px-6 py-3">
                   Code
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Tuition
                 </th>
                 <th scope="col" className="px-6 py-3">
                   Action

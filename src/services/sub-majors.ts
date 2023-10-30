@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Majors } from "@/utils/responseTypes";
+import { SubMajor } from "@/utils/responseTypes";
 import { request } from "./request";
 
-const getAll = (): Promise<Array<Majors>> =>
+const getAll = (): Promise<Array<SubMajor>> =>
   new Promise((rs, rj) => {
     try {
       request()

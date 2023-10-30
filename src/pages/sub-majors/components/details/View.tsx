@@ -19,6 +19,7 @@ const View = ({
     code: "",
     description: "",
     majorId: "",
+    tuition: 0,
   });
   const [majors, setMajors] = useState<Array<Majors>>([]);
 
@@ -105,6 +106,16 @@ const View = ({
             id="description"
             value={details?.description}
             onChange={(e) => changeHandler("description", e.target.value)}
+            className="border p-2 rounded-lg w-full"
+          />
+        </label>
+        <label htmlFor="description" className="flex items-center gap-3 mb-2">
+          Tuition
+          <input
+            id="description"
+            type="number"
+            value={details?.tuition}
+            onChange={(e) => changeHandler("tuition", e.target.value)}
             className="border p-2 rounded-lg w-full"
           />
         </label>
