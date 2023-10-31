@@ -14,6 +14,21 @@ const importExcel = (req: { body: { data: string[] } }): Promise<string> =>
     }
   });
 
+const importExcelSubjectIntoBlock = (req: {
+  body: { data: string[] };
+}): Promise<string> =>
+  new Promise((rs, rj) => {
+    try {
+      request()
+        .post("/core/subject-blocks/import-subject", req.body)
+        .then(({ data }) => {
+          rs(data?.data);
+        });
+    } catch (error) {
+      rj(error);
+    }
+  });
+
 const getAll = (): Promise<Array<SubjectBlock>> =>
   new Promise((rs, rj) => {
     try {
@@ -77,6 +92,7 @@ const SubjectBlockService = {
   update,
   deleted,
   importExcel,
+  importExcelSubjectIntoBlock,
 };
 
 export default SubjectBlockService;

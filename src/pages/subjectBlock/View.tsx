@@ -26,7 +26,7 @@ const View = () => {
     }
   };
 
-  const handleFileUpload = (event: any) => {
+  const handleFileUpload = (event: any, type: string) => {
     const file = event.target.files[0];
 
     if (file) {
@@ -38,19 +38,35 @@ const View = () => {
 
         const sheetName = workbook.SheetNames[0];
         const sheet = workbook.Sheets[sheetName];
+        let res: string = "";
 
-        const columnData = XLSX.utils.sheet_to_json(sheet, {
-          header: ["name"],
-          range: 1,
-        });
-        if (!columnData) {
-          return toast.warn("Wrong format");
+        if (type === "block") {
+          const columnData = XLSX.utils.sheet_to_json(sheet, {
+            header: ["name"],
+            range: 1,
+          });
+          if (!columnData) {
+            return toast.warn("Wrong format");
+          }
+
+          const [, ...rest] = columnData.map((row: any) => row.name.trim());
+          res = await SubjectBlockService.importExcel({
+            body: { data: rest },
+          });
         }
 
-        const [, ...rest] = columnData.map((row: any) => row.name.trim());
-        const res: string = await SubjectBlockService.importExcel({
-          body: { data: rest },
-        });
+        if (type === "sub-block") {
+          const columnData: any = XLSX.utils.sheet_to_json(sheet, {
+            header: ["name", "s1", "s2", "s3"],
+            range: 1,
+          });
+          if (!columnData) {
+            return toast.warn("Wrong format");
+          }
+          res = await SubjectBlockService.importExcelSubjectIntoBlock({
+            body: { data: columnData },
+          });
+        }
         toast.success(res);
         loadData();
       };
@@ -77,7 +93,7 @@ const View = () => {
           hidden
           id="nameImport"
           type="file"
-          onChange={(e) => handleFileUpload(e)}
+          onChange={(e) => handleFileUpload(e, "block")}
         />
         <label
           htmlFor="nameImport"
@@ -85,6 +101,20 @@ const View = () => {
         >
           Import name
         </label>
+        <button className="py-2 rounded-md">
+          <label
+            htmlFor="subjectBlockImport"
+            className="cursor-pointer ml-6 p-3 bg-gray-200 rounded-md"
+          >
+            Import subjects
+          </label>
+          <input
+            hidden
+            id="subjectBlockImport"
+            type="file"
+            onChange={(e) => handleFileUpload(e, "sub-block")}
+          />
+        </button>
       </div>
       <div className="mt-5 h-[calc(100vh-200px)] overflow-y-scroll scrollbar-thin scrollbar-thumb-gray-500">
         <div className="relative overflow-x-auto">

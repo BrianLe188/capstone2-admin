@@ -40,8 +40,26 @@ const View = () => {
   const loadData = async () => {
     try {
       let res: any = [];
-      if (tab === "admission-registration") {
-        res = await AdmissionService.getAllAdmissionRegistration();
+      switch (tab) {
+        case "admission-registration": {
+          res = await AdmissionService.getAllAdmissionRegistration();
+          break;
+        }
+        case "high-school-script": {
+          res =
+            await AdmissionService.getApplicationForAdmissionWithAHighSchoolScript();
+          break;
+        }
+        case "straight-priority": {
+          res =
+            await AdmissionService.getApplicationForStraightAdmissionAndPriorityConsideration();
+          break;
+        }
+        case "test-result": {
+          res =
+            await AdmissionService.getApplicationForAdmissionConsiderationAccordingToTheCompetenceAssessmentTestResult();
+          break;
+        }
       }
       setApplications(res);
     } catch (error) {
