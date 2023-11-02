@@ -13,6 +13,7 @@ import File from "./pages/manageFiles";
 import Dashboard from "./pages/dashboard";
 import SubMajors from "./pages/sub-majors";
 import Application from "./pages/application";
+import Rules from "./pages/rules";
 
 function App() {
   const router = createBrowserRouter([
@@ -58,6 +59,10 @@ function App() {
         {
           path: "application",
           element: <Application />,
+        },
+        {
+          path: "rules",
+          element: <Rules />,
         },
       ],
     },

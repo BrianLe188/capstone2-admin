@@ -3,7 +3,7 @@ import Navbar from "@/components/navbar";
 import { GlobalContext } from "@/contexts/globalContext";
 import { useContext } from "react";
 import { Outlet } from "react-router-dom";
-import { type Menu } from "@/utils/responseTypes";
+import type { Menu } from "@/utils/responseTypes";
 import { menu, angleDown } from "../../assets/index";
 
 const defaultMenu: Menu = {
@@ -88,6 +88,14 @@ const defaultMenu: Menu = {
       id: "9",
       name: "Sub major",
       path: "/sub-majors",
+      icon: menu,
+      angle_down: angleDown,
+      children: [],
+    },
+    {
+      id: "11",
+      name: "Rules",
+      path: "/rules",
       icon: menu,
       angle_down: angleDown,
       children: [],

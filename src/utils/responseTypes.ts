@@ -92,3 +92,9 @@ export type SubMajor = {
   major: Majors;
   tuition: number;
 };
+
+export type Rule = {
+  id: string;
+  name: string;
+  content: string;
+};
