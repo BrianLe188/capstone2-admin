@@ -100,6 +100,14 @@ const defaultMenu: Menu = {
       angle_down: angleDown,
       children: [],
     },
+    {
+      id: "12",
+      name: "Certificates",
+      path: "/certificates",
+      icon: menu,
+      angle_down: angleDown,
+      children: [],
+    },
   ],
 };
 

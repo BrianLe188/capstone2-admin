@@ -14,6 +14,7 @@ import Dashboard from "./pages/dashboard";
 import SubMajors from "./pages/sub-majors";
 import Application from "./pages/application";
 import Rules from "./pages/rules";
+import Certificate from "./pages/certificates";
 
 function App() {
   const router = createBrowserRouter([
@@ -63,6 +64,10 @@ function App() {
         {
           path: "rules",
           element: <Rules />,
+        },
+        {
+          path: "certificates",
+          element: <Certificate />,
         },
       ],
     },

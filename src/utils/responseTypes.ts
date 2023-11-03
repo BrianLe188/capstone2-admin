@@ -91,10 +91,16 @@ export type SubMajor = {
   majorId: string;
   major: Majors;
   tuition: number;
+  graduationRequirements: Array<Certificate>;
 };
 
 export type Rule = {
   id: string;
   name: string;
   content: string;
+};
+
+export type Certificate = {
+  id: string;
+  name: string;
 };

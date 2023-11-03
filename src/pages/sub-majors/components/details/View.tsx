@@ -1,6 +1,7 @@
+import CertificateService from "@/services/certificates";
 import MajorsService from "@/services/majors";
 import SubMajorsService from "@/services/sub-majors";
-import { Majors, SubMajor } from "@/utils/responseTypes";
+import { Certificate, Majors, SubMajor } from "@/utils/responseTypes";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
@@ -22,14 +23,24 @@ const View = ({
     tuition: 0,
   });
   const [majors, setMajors] = useState<Array<Majors>>([]);
+  const [certificates, setCertificates] = useState<Array<Certificate>>([]);
+  const [selectedCertificates, setSelectedCertificates] = useState<
+    Array<string>
+  >([]);
 
   useEffect(() => {
     loadMajors();
+    loadCertificates();
     if (data) {
       setDetails({
         ...data,
         majorId: data.major?.id || "",
       });
+      if (data.graduationRequirements) {
+        setSelectedCertificates(
+          data.graduationRequirements?.map((item) => item.id)
+        );
+      }
     }
   }, [data]);
 
@@ -47,6 +58,13 @@ const View = ({
     }
   };
 
+  const loadCertificates = async () => {
+    const res = await CertificateService.getAll();
+    if (res) {
+      setCertificates(res);
+    }
+  };
+  console.log(selectedCertificates);
   const submit = async () => {
     try {
       let res;
@@ -59,11 +77,12 @@ const View = ({
           },
           body: {
             ...rest,
+            graduationRequirements: selectedCertificates,
           },
         });
       } else {
         res = await SubMajorsService.create({
-          body: details,
+          body: { ...details, graduationRequirements: selectedCertificates },
         });
       }
       if (res) {
@@ -119,6 +138,31 @@ const View = ({
             className="border p-2 rounded-lg w-full"
           />
         </label>
+        <div className="mb-2">
+          <label htmlFor="graduationRequirements">graduationRequirements</label>
+          <div className="overflow-auto flex flex-wrap gap-3">
+            {certificates.map((item) => (
+              <div>
+                <input
+                  type="checkbox"
+                  id={item.id}
+                  className="mr-1"
+                  checked={!!selectedCertificates.find((i) => i === item.id)}
+                  onChange={() => {
+                    if (selectedCertificates?.includes(item.id)) {
+                      setSelectedCertificates((state) =>
+                        state.filter((i) => i !== item.id)
+                      );
+                    } else {
+                      setSelectedCertificates((state) => [...state, item.id]);
+                    }
+                  }}
+                />
+                <label htmlFor={item.id}>{item.name}</label>
+              </div>
+            ))}
+          </div>
+        </div>
         <div>
           <label htmlFor="majorid">Major</label>
           <div className="h-96 overflow-auto flex flex-wrap gap-3">
