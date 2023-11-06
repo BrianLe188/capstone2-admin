@@ -108,6 +108,14 @@ const defaultMenu: Menu = {
       angle_down: angleDown,
       children: [],
     },
+    {
+      id: "13",
+      name: "Conversations",
+      path: "/conversations",
+      icon: menu,
+      angle_down: angleDown,
+      children: [],
+    },
   ],
 };
 

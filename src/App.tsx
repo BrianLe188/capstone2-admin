@@ -15,6 +15,7 @@ import SubMajors from "./pages/sub-majors";
 import Application from "./pages/application";
 import Rules from "./pages/rules";
 import Certificate from "./pages/certificates";
+import Conversation from "./pages/conversations";
 
 function App() {
   const router = createBrowserRouter([
@@ -68,6 +69,10 @@ function App() {
         {
           path: "certificates",
           element: <Certificate />,
+        },
+        {
+          path: "conversations",
+          element: <Conversation />,
         },
       ],
     },
