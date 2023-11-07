@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { EFILE, ELEVEL } from "./enums";
+import { EFILE, ELEVEL, EMessageType } from "./enums";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export type Menu = {
@@ -103,4 +103,16 @@ export type Rule = {
 export type Certificate = {
   id: string;
   name: string;
+};
+
+export type Prettify<T> = {
+  [K in keyof T]: T[K];
+  // eslint-disable-next-line @typescript-eslint/ban-types
+} & {};
+
+export type Message = {
+  type: EMessageType;
+  content: string;
+  sender: string;
+  room: string;
 };

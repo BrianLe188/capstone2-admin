@@ -13,12 +13,12 @@ const View = ({
   return (
     <button
       className={twMerge(
-        "border-2 border-gray-400 bg-white rounded-lg p-3 mt-2",
+        "border-2 border-gray-400 bg-white rounded-lg p-3 mt-2 w-full",
         active && "bg-gray-200"
       )}
-      onClick={() => onClick && onClick(data.id)}
+      onClick={() => onClick && onClick(data._id)}
     >
-      {data.fullName}
+      {data.realName}
     </button>
   );
 };

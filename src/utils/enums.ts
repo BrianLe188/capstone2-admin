@@ -4,14 +4,18 @@ export enum EROLE {
 }
 
 export enum ELEVEL {
-  UNIVERSITY = 'university',
-  AFTER_UNIVERSITY = 'after_university',
+  UNIVERSITY = "university",
+  AFTER_UNIVERSITY = "after_university",
 }
 
-
 export enum EFILE {
-  DOCX = 'docx',
-  PDF = 'pdf',
-  TXT = 'txt',
-  XLSX = 'xlsx',
+  DOCX = "docx",
+  PDF = "pdf",
+  TXT = "txt",
+  XLSX = "xlsx",
+}
+
+export enum EMessageType {
+  AI = "ai",
+  USER = "user",
 }
