@@ -9,13 +9,10 @@ const chatAdvise = (store: MiddlewareAPI) => (next: Dispatch<AnyAction>) => {
       token: token || "",
     },
   });
-
   socket.emit("assign_socket", {});
 
   socket.on("assign_token", (_token) => {
-    if (!token) {
-      localStorage.setItem("token", _token);
-    }
+    localStorage.setItem("token", _token);
   });
 
   socket.on("receive_message", (data) => {
@@ -25,6 +22,14 @@ const chatAdvise = (store: MiddlewareAPI) => (next: Dispatch<AnyAction>) => {
 
   socket.on("my_conversations", (data) => {
     store.dispatch(addConversations(data));
+  });
+
+  socket.on("someone_connect_to_room", (data) => {
+    console.log(data);
+  });
+
+  socket.on("someone_leave_out_room", (data) => {
+    console.log(data);
   });
 
   return (action: AnyAction) => {
