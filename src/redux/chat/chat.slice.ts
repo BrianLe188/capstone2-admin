@@ -17,10 +17,15 @@ export const chatSlice = createSlice({
   reducers: {
     addMessage: (
       state,
-      action: PayloadAction<Prettify<Message & { file: string | null }>>
+      action: PayloadAction<
+        Partial<
+          Prettify<Message & { file: string | null; target: string | null }>
+        >
+      >
     ) => {
-      const { type, content, sender, room } = action.payload;
-      state.advises.push({ type, content, sender, room });
+      // const { type, content, sender, room } = action.payload;
+      // state.advises.push({ type, content, sender, room });
+      console.log(state, action);
     },
     receiveMessage: (state, action: PayloadAction<Message>) => {
       state.advises.push(action.payload);

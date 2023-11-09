@@ -1,12 +1,19 @@
 import { twMerge } from "tailwind-merge";
 import Person from "./components/person";
-import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { chatSelector } from "@/redux/selectors";
 import { connectRoom } from "@/redux/chat/chat.slice";
+import { Dispatch, SetStateAction } from "react";
 
-const View = ({ className }: { className?: string }) => {
-  const [target, setTarget] = useState<string | null>(null);
+const View = ({
+  className,
+  target,
+  setTarget,
+}: {
+  className?: string;
+  target: string | null;
+  setTarget: Dispatch<SetStateAction<string | null>>;
+}) => {
   const { conversations } = useAppSelector(chatSelector);
   const dispatch = useAppDispatch();
 
