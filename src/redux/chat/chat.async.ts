@@ -8,9 +8,6 @@ export const fetchMessageByTarget = createAsyncThunk(
     const messages = await MessageService.searchMessage({
       params: { target },
     });
-    console.log(messages);
-    // return {
-    //   [target]: message,
-    // };
+    return messages || [];
   }
 );

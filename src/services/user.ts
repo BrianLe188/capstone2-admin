@@ -61,11 +61,26 @@ const deleted = (req: { params: { id: string } }) =>
     }
   });
 
+const verify = () =>
+  new Promise((rs, rj) => {
+    request()
+      .get("/auth/users/verify")
+      .then(({ data }) => {
+        if (data) {
+          rs(data);
+        }
+      })
+      .catch((error) => {
+        rj(error);
+      });
+  });
+
 const UserService = {
   getAll,
   create,
   update,
   deleted,
+  verify,
 };
 
 export default UserService;

@@ -4,14 +4,12 @@ import { Message, Prettify } from "@/utils/responseTypes";
 import { fetchMessageByTarget } from "./chat.async";
 
 export interface EChatState {
-  advises: Message[];
   conversations: any[];
-  messages: { [key: string]: Message[] };
+  messages: Message[];
 }
 const initialState: EChatState = {
-  advises: [],
   conversations: [],
-  messages: {},
+  messages: [],
 };
 
 export const chatSlice = createSlice({
@@ -29,7 +27,7 @@ export const chatSlice = createSlice({
       console.log(state, action);
     },
     receiveMessage: (state, action: PayloadAction<Message>) => {
-      state.advises.push(action.payload);
+      state.messages.push(action.payload);
     },
     connectRoom: (
       state,
@@ -49,12 +47,12 @@ export const chatSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchMessageByTarget.fulfilled, (state, action) => {
-      state.messages = {
-        ...state.messages,
-        ...action.payload,
-      };
-    });
+    builder.addCase(
+      fetchMessageByTarget.fulfilled,
+      (state, action: PayloadAction<Message[]>) => {
+        state.messages = action.payload;
+      }
+    );
   },
 });
 
