@@ -16,7 +16,6 @@ const chatAdvise = (store: MiddlewareAPI) => (next: Dispatch<AnyAction>) => {
   });
 
   socket.on("receive_message", (data) => {
-    console.log(data);
     store.dispatch(receiveMessage(data));
   });
 

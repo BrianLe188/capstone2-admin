@@ -8,7 +8,7 @@ const axiosInstance = axios.create({
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const request = (options: Record<string, any> = {}) => {
-  const AUTH_TOKEN = "Bearer " + localStorage.getItem("auth");
+  const AUTH_TOKEN = localStorage.getItem("token");
   // axiosInstance.defaults.headers["Content-Type"] = "application/json";
   axiosInstance.defaults.headers.common["Authorization"] = AUTH_TOKEN;
   if (options.headers) {

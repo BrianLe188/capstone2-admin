@@ -1,13 +1,16 @@
 import { addMessage } from "@/redux/chat/chat.slice";
 import People from "./components/people";
-import { useAppDispatch } from "@/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { EMessageType } from "@/utils/enums";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { chatSelector } from "@/redux/selectors";
+import { fetchMessageByTarget } from "@/redux/chat/chat.async";
 
 const View = () => {
   const dispatch = useAppDispatch();
   const [message, setMessage] = useState("");
   const [target, setTarget] = useState<string | null>(null);
+  const { messages } = useAppSelector(chatSelector);
 
   const handleSubmit = () => {
     if (target) {
@@ -29,6 +32,13 @@ const View = () => {
       handleSubmit();
     }
   };
+
+  useEffect(() => {
+    if (target && !messages[target]) {
+      dispatch(fetchMessageByTarget(target));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [target]);
 
   return (
     <div className="grid grid-cols-12 h-full">

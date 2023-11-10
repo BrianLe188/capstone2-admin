@@ -1,14 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Message, Prettify } from "@/utils/responseTypes";
+import { fetchMessageByTarget } from "./chat.async";
 
 export interface EChatState {
   advises: Message[];
   conversations: any[];
+  messages: { [key: string]: Message[] };
 }
 const initialState: EChatState = {
   advises: [],
   conversations: [],
+  messages: {},
 };
 
 export const chatSlice = createSlice({
@@ -23,8 +26,6 @@ export const chatSlice = createSlice({
         >
       >
     ) => {
-      // const { type, content, sender, room } = action.payload;
-      // state.advises.push({ type, content, sender, room });
       console.log(state, action);
     },
     receiveMessage: (state, action: PayloadAction<Message>) => {
@@ -43,6 +44,17 @@ export const chatSlice = createSlice({
     addConversations: (state, action: PayloadAction<any[]>) => {
       state.conversations = action.payload;
     },
+    leaveRoom: (state, action: PayloadAction<{ target: string }>) => {
+      console.log(state, action);
+    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchMessageByTarget.fulfilled, (state, action) => {
+      state.messages = {
+        ...state.messages,
+        ...action.payload,
+      };
+    });
   },
 });
 
