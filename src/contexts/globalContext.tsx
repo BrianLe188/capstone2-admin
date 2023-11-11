@@ -16,8 +16,12 @@ interface IGlobalContext {
   auth: {
     id: string;
     email: string;
+    role: {
+      name: string;
+    };
   };
-  setToken: Dispatch<SetStateAction<string>>;
+  setToken: Dispatch<SetStateAction<string | null>>;
+  token: string | null;
 }
 
 const defaultValues: IGlobalContext = {
@@ -26,8 +30,12 @@ const defaultValues: IGlobalContext = {
   auth: {
     id: "",
     email: "",
+    role: {
+      name: "",
+    },
   },
   setToken: () => {},
+  token: null,
 };
 
 export const GlobalContext = createContext(defaultValues);
@@ -37,8 +45,11 @@ const GlobalContextProvider = ({ children }: { children: ReactElement }) => {
   const [auth, setAuth] = useState({
     id: "",
     email: "",
+    role: {
+      name: "",
+    },
   });
-  const [token, setToken] = useState("");
+  const [token, setToken] = useState(localStorage.getItem("token"));
 
   useEffect(() => {
     if (auth) {
@@ -47,11 +58,18 @@ const GlobalContextProvider = ({ children }: { children: ReactElement }) => {
   }, [auth]);
 
   useEffect(() => {
+    localStorage.setItem("token", token || "");
     getAuth();
   }, [token]);
 
   const getAuth = async () => {
-    const v = (await UserService.verify()) as { id: string; email: string };
+    const v = (await UserService.verify()) as {
+      id: string;
+      email: string;
+      role: {
+        name: string;
+      };
+    };
     if (v) {
       setAuth(v);
     }
@@ -72,6 +90,7 @@ const GlobalContextProvider = ({ children }: { children: ReactElement }) => {
         getMenusByPosition,
         auth,
         setToken,
+        token,
       }}
     >
       {children}

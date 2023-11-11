@@ -1,10 +1,12 @@
 import Sidebar from "@/components/sidebar";
 import Navbar from "@/components/navbar";
 import { GlobalContext } from "@/contexts/globalContext";
-import { useContext } from "react";
-import { Outlet } from "react-router-dom";
+import { useContext, useEffect } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
 import type { Menu } from "@/utils/responseTypes";
 import { menu, angleDown } from "../../assets/index";
+import { Provider } from "react-redux";
+import { store } from "@/redux/store";
 
 const defaultMenu: Menu = {
   _id: "1",
@@ -122,19 +124,32 @@ const defaultMenu: Menu = {
 const View = () => {
   const { getMenusByPosition } = useContext(GlobalContext);
   const menus = getMenusByPosition("");
+  const { token, auth } = useContext(GlobalContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (token && auth.role.name === "admin") {
+      navigate("/");
+    } else {
+      navigate("/login");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token, auth]);
 
   return (
-    <div className="w-full bg-gray-300">
-      <Navbar />
-      <div className="grid grid-cols-12 h-[calc(100vh-85px)] mt-3 mx-3 pb-3 gap-3">
-        <div className="col-span-3">
-          <Sidebar data={menus || defaultMenu} />
-        </div>
-        <div className="col-span-9 bg-white rounded-xl">
-          <Outlet />
+    <Provider store={store}>
+      <div className="w-full bg-gray-300">
+        <Navbar />
+        <div className="grid grid-cols-12 h-[calc(100vh-85px)] mt-3 mx-3 pb-3 gap-3">
+          <div className="col-span-3">
+            <Sidebar data={menus || defaultMenu} />
+          </div>
+          <div className="col-span-9 bg-white rounded-xl">
+            <Outlet />
+          </div>
         </div>
       </div>
-    </div>
+    </Provider>
   );
 };
 
