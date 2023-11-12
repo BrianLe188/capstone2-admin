@@ -81,6 +81,12 @@ const View = () => {
         >
           New
         </button>
+        <button
+          className="bg-green-200 w-20 py-2 rounded-md mr-3"
+          onClick={() => setTarget({} as Subject)}
+        >
+          Auto accept
+        </button>
       </div>
       <Tab data={tabs} setTarget={setTab} target={tab} />
       <div className="mt-5 h-[calc(100vh-200px)] overflow-y-scroll scrollbar-thin scrollbar-thumb-gray-500">
