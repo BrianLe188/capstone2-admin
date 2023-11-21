@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { request } from "./request";
 
 const getAllAdmissionRegistration = () =>
@@ -57,11 +58,87 @@ const getApplicationForAdmissionConsiderationAccordingToTheCompetenceAssessmentT
       }
     });
 
+const updateApplicationRegistration = (req: {
+  params: { id: string };
+  body: any;
+}) =>
+  new Promise((rs, rj) => {
+    try {
+      request()
+        .put(
+          `/admission/application-admisison-registration/update/${req.params.id}`,
+          req.body
+        )
+        .then(({ data }) => {
+          rs(data);
+        });
+    } catch (error) {
+      rj(error);
+    }
+  });
+
+const updateApplicationForAdmissionConsiderationAccordingToTheCompetenceAssessmentTestResult =
+  (req: { params: { id: string }; body: any }) =>
+    new Promise((rs, rj) => {
+      try {
+        request()
+          .put(
+            `/admission/application-for-admission-consideration-according-to-the-competence-assessment-test-result/update/${req.params.id}`,
+            req.body
+          )
+          .then(({ data }) => {
+            rs(data);
+          });
+      } catch (error) {
+        rj(error);
+      }
+    });
+const updateApplicationForAdmissionWithAHighSchoolScript = (req: {
+  params: { id: string };
+  body: any;
+}) =>
+  new Promise((rs, rj) => {
+    try {
+      request()
+        .put(
+          `/admission/application-admisison-high-school-script/update/${req.params.id}`,
+          req.body
+        )
+        .then(({ data }) => {
+          rs(data);
+        });
+    } catch (error) {
+      rj(error);
+    }
+  });
+const updateApplicationForStraightAdmissionAndPriorityConsideration = (req: {
+  params: { id: string };
+  body: any;
+}) =>
+  new Promise((rs, rj) => {
+    try {
+      request()
+        .put(
+          `/admission/application-for-straight-admission-and-priority-consideration/update/${req.params.id}`,
+          req.body
+        )
+        .then(({ data }) => {
+          rs(data);
+        });
+    } catch (error) {
+      rj(error);
+    }
+  });
+
 const AdmissionService = {
   getAllAdmissionRegistration,
   getApplicationForAdmissionWithAHighSchoolScript,
   getApplicationForStraightAdmissionAndPriorityConsideration,
   getApplicationForAdmissionConsiderationAccordingToTheCompetenceAssessmentTestResult,
+  updateApplicationRegistration,
+  updateApplicationForAdmissionConsiderationAccordingToTheCompetenceAssessmentTestResult,
+  updateApplicationForAdmissionWithAHighSchoolScript,
+  updateApplicationForStraightAdmissionAndPriorityConsideration,
 };
 
 export default AdmissionService;

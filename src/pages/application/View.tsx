@@ -71,7 +71,12 @@ const View = () => {
     <div>
       {target &&
         createPortal(
-          <Details data={target} load={loadData} setTarget={setTarget} />,
+          <Details
+            data={target}
+            load={loadData}
+            setTarget={setTarget}
+            tab={tab}
+          />,
           document.body
         )}
       <div className="m-3">
@@ -118,7 +123,7 @@ const View = () => {
               </tr>
             </thead>
             <tbody>
-              {applications.map((item) => (
+              {applications?.map((item) => (
                 <Hsscript
                   data={item}
                   onEdit={() => setTarget(item)}

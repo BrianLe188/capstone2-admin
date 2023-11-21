@@ -16,6 +16,7 @@ import Application from "./pages/application";
 import Rules from "./pages/rules";
 import Certificate from "./pages/certificates";
 import Conversation from "./pages/conversations";
+import Settings from "./pages/settings";
 
 function App() {
   const router = createBrowserRouter([
@@ -73,6 +74,10 @@ function App() {
         {
           path: "conversations",
           element: <Conversation />,
+        },
+        {
+          path: "settings",
+          element: <Settings />,
         },
       ],
     },

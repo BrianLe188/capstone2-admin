@@ -118,6 +118,14 @@ const defaultMenu: Menu = {
       angle_down: angleDown,
       children: [],
     },
+    {
+      id: "14",
+      name: "Settings",
+      path: "/settings",
+      icon: menu,
+      angle_down: angleDown,
+      children: [],
+    },
   ],
 };
 

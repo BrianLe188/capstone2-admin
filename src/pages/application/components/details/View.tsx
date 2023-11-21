@@ -1,4 +1,5 @@
-import SubjectService from "@/services/subject";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import AdmissionService from "@/services/admission";
 import { Subject } from "@/utils/responseTypes";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -7,12 +8,14 @@ const View = ({
   data,
   load,
   setTarget,
+  tab,
 }: {
   data?: Subject;
   load: () => void;
-  setTarget: Dispatch<SetStateAction<Subject | null>>;
+  setTarget: Dispatch<SetStateAction<any>>;
+  tab: string;
 }) => {
-  const [details, setDetails] = useState<Partial<Subject>>({});
+  const [details, setDetails] = useState<any>({});
 
   useEffect(() => {
     if (data) {
@@ -21,7 +24,7 @@ const View = ({
   }, [data]);
 
   const changeHandler = (name: string, value: number | string) => {
-    setDetails((state) => ({
+    setDetails((state: any) => ({
       ...state,
       [name]: value,
     }));
@@ -32,19 +35,56 @@ const View = ({
       let res;
       if (data?.id) {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { id, ...rest } = details;
-        res = await SubjectService.update({
-          params: {
-            id: data.id,
-          },
-          body: rest,
-        });
-      } else {
-        res = await SubjectService.create({
-          body: {
-            ...details,
-          },
-        });
+        const { id, status } = details;
+        if (id) {
+          switch (tab) {
+            case "admission-registration": {
+              res = await AdmissionService.updateApplicationRegistration({
+                params: { id },
+                body: {
+                  status,
+                },
+              });
+              break;
+            }
+            case "high-school-script": {
+              res =
+                await AdmissionService.updateApplicationForAdmissionWithAHighSchoolScript(
+                  {
+                    params: { id },
+                    body: {
+                      status,
+                    },
+                  }
+                );
+              break;
+            }
+            case "straight-priority": {
+              res =
+                await AdmissionService.updateApplicationForStraightAdmissionAndPriorityConsideration(
+                  {
+                    params: { id },
+                    body: {
+                      status,
+                    },
+                  }
+                );
+              break;
+            }
+            case "test-result": {
+              res =
+                await AdmissionService.updateApplicationForAdmissionConsiderationAccordingToTheCompetenceAssessmentTestResult(
+                  {
+                    params: { id },
+                    body: {
+                      status,
+                    },
+                  }
+                );
+              break;
+            }
+          }
+        }
       }
       if (res) {
         toast.success("Success");
