@@ -1,4 +1,4 @@
-import { addMessage } from "@/redux/chat/chat.slice";
+import { addMessage, typing } from "@/redux/chat/chat.slice";
 import People from "./components/people";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { EMessageType } from "@/utils/enums";
@@ -16,6 +16,17 @@ const View = () => {
   const [message, setMessage] = useState("");
   const [target, setTarget] = useState<string | null>(null);
   const { messages } = useAppSelector(chatSelector);
+
+  const handleTyping = () => {
+    if (target) {
+      dispatch(
+        typing({
+          target,
+          room: target,
+        })
+      );
+    }
+  };
 
   const handleSubmit = () => {
     if (target) {
@@ -68,7 +79,10 @@ const View = () => {
               <input
                 type="text"
                 className="border rounded-lg w-full p-2"
-                onChange={(e) => setMessage(e.target.value)}
+                onChange={(e) => {
+                  handleTyping();
+                  setMessage(e.target.value);
+                }}
                 onKeyDown={(e) => handleEnterPress(e)}
                 value={message}
               />

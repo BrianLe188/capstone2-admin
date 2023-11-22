@@ -33,6 +33,12 @@ const View = () => {
     } catch (error) {}
   };
 
+  const handleStoreDocsIntoPinecone = async () => {
+    try {
+      await SettingService.storeDocsIntoPinecone();
+    } catch (error) {}
+  };
+
   return (
     <div>
       <div className="p-2 border-2">
@@ -61,6 +67,17 @@ const View = () => {
             className="cursor-pointer ml-6 p-3 bg-gray-200 rounded-md"
           >
             Generate source from report
+          </label>
+        </button>
+        <button
+          className="py-2 rounded-md"
+          onClick={handleStoreDocsIntoPinecone}
+        >
+          <label
+            htmlFor="sync"
+            className="cursor-pointer ml-6 p-3 bg-gray-200 rounded-md"
+          >
+            Store docs into pinecone
           </label>
         </button>
       </div>

@@ -45,6 +45,7 @@ export const chatSlice = createSlice({
     leaveRoom: (state, action: PayloadAction<{ target: string }>) => {
       console.log(state, action);
     },
+    typing: (_state, _action) => {},
   },
   extraReducers: (builder) => {
     builder.addCase(
@@ -56,7 +57,12 @@ export const chatSlice = createSlice({
   },
 });
 
-export const { addMessage, receiveMessage, connectRoom, addConversations } =
-  chatSlice.actions;
+export const {
+  addMessage,
+  receiveMessage,
+  connectRoom,
+  addConversations,
+  typing,
+} = chatSlice.actions;
 
 export default chatSlice.reducer;

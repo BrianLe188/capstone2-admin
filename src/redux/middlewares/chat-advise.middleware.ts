@@ -31,6 +31,10 @@ const chatAdvise = (store: MiddlewareAPI) => (next: Dispatch<AnyAction>) => {
     console.log(data);
   });
 
+  socket.on("someone_typing", () => {
+    console.log("someone_typing");
+  });
+
   return (action: AnyAction) => {
     switch (action.type) {
       case "chat/addMessage": {
@@ -42,6 +46,13 @@ const chatAdvise = (store: MiddlewareAPI) => (next: Dispatch<AnyAction>) => {
       }
       case "chat/connectRoom": {
         socket.emit("connect_room", {
+          ...action.payload,
+          token: localStorage.getItem("token"),
+        });
+        break;
+      }
+      case "chat/typing": {
+        socket.emit("typing", {
           ...action.payload,
           token: localStorage.getItem("token"),
         });

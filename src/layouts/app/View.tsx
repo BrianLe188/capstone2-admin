@@ -136,7 +136,10 @@ const View = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (token && auth.role.name === "admin") {
+    if (
+      token &&
+      (auth.role.name === "admin" || auth.role.name === "admission-staff")
+    ) {
       navigate("/");
     } else {
       navigate("/login");

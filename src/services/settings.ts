@@ -52,11 +52,25 @@ const generateSourceFromReport = () =>
     }
   });
 
+const storeDocsIntoPinecone = () =>
+  new Promise((rs, rj) => {
+    try {
+      request()
+        .get("/setting/store-doc-pinecone")
+        .then(({ data }) => {
+          rs(data?.data);
+        });
+    } catch (error) {
+      rj(error);
+    }
+  });
+
 const SettingService = {
   importQATempate,
   syncRule,
   statisticSubmajor,
   generateSourceFromReport,
+  storeDocsIntoPinecone,
 };
 
 export default SettingService;
