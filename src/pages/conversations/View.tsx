@@ -32,7 +32,7 @@ const View = () => {
     if (target) {
       dispatch(
         addMessage({
-          type: EMessageType.USER,
+          type: EMessageType.STAFF,
           content: message,
           file: target,
           target,
